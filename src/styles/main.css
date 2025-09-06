@@ -21,19 +21,19 @@
 
 /* Dark theme overrides */
 :root[data-theme="dark"] {
-  --brand: #60A5FA;
-  --brand-dark: #93C5FD;
-  --accent: #FB923C;
-  --ink: #F9FAFB;
-  --muted: #CBD5E1;
-  --bg: #111827;
-  --card: #1F2937;
+  --brand: #FB6D6D;            /* Bright Coral */
+  --brand-dark: #F97316;       /* Red-Orange */
+  --accent: #FCA5A5;           /* Peach Tint */
+  --ink: #F9FAFB;              /* Text */
+  --muted: #CBD5E1;            /* Muted */
+  --bg: #111827;               /* Deep Navy */
+  --card: #1F2937;             /* Dark Slate */
   --shadow: 0 6px 18px rgba(0,0,0,0.45);
   --soft-shadow: 0 10px 28px rgba(0,0,0,0.5);
   --button-shadow: 0 0 0 0 rgba(0,0,0,0);
-  --btn-grad: linear-gradient(90deg, #2563EB, #7C3AED);
+  --btn-grad: linear-gradient(90deg, #FB6D6D, #F97316);
   --footer-bg: #0b1220;
-  --accent-glow: rgba(251,146,60,.35);
+  --accent-glow: rgba(252,165,165,.45);
 }
 
 body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; color: var(--ink); background: var(--bg); }
