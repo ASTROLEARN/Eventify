@@ -2,7 +2,7 @@ export function About() {
   const el = document.createElement('main');
   el.className = 'content-section';
   el.innerHTML = `
-    <section class="panel">
+    <section class="panel about-section">
       <h2 class="section-title">About Eventify</h2>
       <p class="lead">Mission: <strong>Making event planning stress-free, affordable, and transparent.</strong></p>
       <p>Eventify was born when our founders struggled to coordinate their own family events. Too many spreadsheets, endless phone calls, and opaque pricing led us to build a better way.</p>
