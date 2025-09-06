@@ -134,7 +134,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .progress-bar { background: var(--brand); height: 100%; }
 .calendar-placeholder { height: 150px; border: 1px dashed #cbd5e1; border-radius: 8px; display: grid; place-items: center; color: var(--muted); }
 
-.site-footer { background: var(--footer-bg); }
+.site-footer { background: var(--footer-bg); color: var(--muted); }
 .footer-content { max-width: 1100px; margin: 0 auto; padding: 24px 16px; display: grid; gap: 12px; justify-items: center; }
 .footer-links { display: flex; gap: 12px; }
 .footer-link { color: var(--muted); text-decoration: none; }
