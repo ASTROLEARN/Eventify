@@ -116,7 +116,8 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .contact-grid { grid-template-columns: .9fr 1.1fr; align-items: start; }
 
 .feature-card, .service-card, .team-card, .blog-card, .vendor-card, .card, .step-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
-.feature-icon, .service-icon, .step-icon { font-size: 28px; }
+.feature-icon, .service-icon, .step-icon { font-size: 28px; transition: transform .25s ease, color .25s ease, filter .25s ease; }
+.feature-card:hover .feature-icon, .service-card:hover .service-icon, .step-card:hover .step-icon { transform: translateY(-2px); color: var(--accent); filter: drop-shadow(0 2px 6px var(--accent)); }
 .team-card img { width: 100%; height: auto; border-radius: 50%; }
 .badge { background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
 
