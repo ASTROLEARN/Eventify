@@ -100,7 +100,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .carousel-control.prev { left: 8px; }
 .carousel-control.next { right: 8px; }
 .testimonial-card { padding: 20px; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); margin: 16px; border: 1px solid transparent; transition: box-shadow .3s ease, filter .3s ease; }
-.testimonial-card.active { box-shadow: 0 0 0 1px var(--accent), 0 0 0 6px var(--accent-glow), 0 14px 40px rgba(2,6,23,0.18); }
+.testimonial-card.active { box-shadow: 0 0 0 1px var(--brand), 0 0 0 6px var(--accent-glow), 0 14px 40px rgba(2,6,23,0.18); }
 .stars { color: #eab308; margin-bottom: 8px; }
 .quote { color: var(--ink); }
 .author { color: var(--muted); }
