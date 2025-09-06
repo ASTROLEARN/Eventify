@@ -86,14 +86,20 @@ export function Homepage() {
   const prev = section.querySelector('.carousel-control.prev');
   const next = section.querySelector('.carousel-control.next');
   let index = 0;
+  const cardEls = track ? Array.from(track.children) : [];
+  function setActiveCard() {
+    cardEls.forEach((el, i) => el.classList.toggle('active', i === index));
+  }
   function update() {
     if (!track) return;
     const cards = track.children.length;
     index = (index + cards) % cards;
     track.style.transform = `translateX(${-index * 100}%)`;
+    setActiveCard();
   }
   if (prev) prev.addEventListener('click', () => { index--; update(); });
   if (next) next.addEventListener('click', () => { index++; update(); });
+  setActiveCard();
   let autoplay = setInterval(() => { index++; update(); }, 5000);
   section.addEventListener('mouseenter', () => clearInterval(autoplay));
   section.addEventListener('mouseleave', () => { autoplay = setInterval(() => { index++; update(); }, 5000); });
