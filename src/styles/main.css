@@ -91,8 +91,8 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; align-items: center; }
 .hero-copy { padding: 8px; }
 .hero-cta { margin-right: 10px; }
-.hero-image { min-height: auto; border-radius: var(--radius); box-shadow: var(--shadow); background: rgba(0,0,0,0.25); display: grid; place-items: center; }
-.hero-logo { width: 72%; max-width: 420px; height: auto; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 4px 14px rgba(248,113,113,.35)); }
+.hero-image { min-height: auto; padding: 0; width: max-content; max-width: 100%; height: auto; border-radius: var(--radius); box-shadow: var(--shadow); background: rgba(0,0,0,0.25); display: grid; place-items: center; justify-self: center; }
+.hero-logo { width: 100%; max-width: 420px; height: auto; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 4px 14px rgba(248,113,113,.35)); display: block; }
 
 /* Section divider */
 .section-divider { height: 14px; margin: 20px 0; background: linear-gradient(90deg, rgba(253,226,217,0), #FDE2D9, rgba(253,226,217,0)); border-radius: 999px; }
