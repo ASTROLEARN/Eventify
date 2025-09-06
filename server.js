@@ -5,6 +5,7 @@ const url = require('url');
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
+const SRC_DIR = path.join(__dirname, 'src');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -50,7 +51,9 @@ const server = http.createServer((req, res) => {
   let pathname = decodeURIComponent(parsed.pathname || '/');
   if (pathname === '/') pathname = '/index.html';
 
-  let filePath = safeJoin(PUBLIC_DIR, pathname);
+  const isSrc = pathname.startsWith('/src/');
+  const relPath = isSrc ? pathname.replace(/^\/src/, '') : pathname;
+  let filePath = safeJoin(isSrc ? SRC_DIR : PUBLIC_DIR, relPath);
 
   fs.stat(filePath, (err, stats) => {
     if (!err && stats.isDirectory()) {
