@@ -40,6 +40,7 @@ export function Homepage() {
         <div class="hero-image" role="img" aria-label="Elegant wedding celebration"></div>
       </div>
     </section>
+    <div class="section-divider" aria-hidden="true"></div>
 
     <section class="category-section">
       <h3 class="section-title">Quick Vendor Categories</h3>
@@ -51,6 +52,7 @@ export function Homepage() {
         ${categoryItem('Entertainment', icons.Entertainment)}
       </div>
     </section>
+    <div class="section-divider" aria-hidden="true"></div>
 
     <section class="testimonials-section" aria-label="Testimonials">
       <h3 class="section-title">What Users Say</h3>
