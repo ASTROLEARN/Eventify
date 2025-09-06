@@ -29,7 +29,7 @@ export function About() {
     <section class="team-section">
       <h3 class="section-title">Meet the Team</h3>
       <div class="team-grid">
-        ${['Anika Gupta','Rohan Mehta','Sara Khan','Vikram Rao'].map((name, i) => `
+        ${['Shaan Goswami','Pankaj Kumar Sharma','Satish Kumar Sai','Sri Sai Srinivash Panda'].map((name, i) => `
           <article class="team-card">
             <img src="https://picsum.photos/seed/eventify-${i}/240/240" width="240" height="240" alt="${name} portrait" loading="lazy"/>
             <h4>${name}</h4>
