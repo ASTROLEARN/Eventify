@@ -2,9 +2,9 @@
 
 :root {
   /* Theme colors - Light mode */
-  --brand: #2563EB;            /* Primary */
-  --brand-dark: #1E40AF;       /* Primary (hover) */
-  --accent: #F97316;           /* Accent */
+  --brand: #F87171;            /* Coral - primary */
+  --brand-dark: #EF4444;       /* Deeper coral */
+  --accent: #FDE2D9;           /* Soft Peach */
   --ink: #1F2937;              /* Text */
   --muted: #475569;            /* Muted text */
   --bg: #FFFFFF;               /* Background */
@@ -12,10 +12,11 @@
   --radius: 12px;
   --shadow: 0 4px 16px rgba(2,6,23,0.08);
   --soft-shadow: 0 8px 24px rgba(2,6,23,0.08);
-  --button-shadow: 0 8px 18px rgba(37,99,235,0.18);
-  --btn-grad: linear-gradient(90deg, #2563EB, #06B6D4);
-  --footer-bg: #F1F5F9;
-  --accent-glow: rgba(249,115,22,.35);
+  --button-shadow: 0 8px 18px rgba(248,113,113,0.22);
+  --btn-grad: linear-gradient(90deg, #F87171, #FCA5A5);
+  --footer-bg: #FDE2D9;
+  --accent-glow: rgba(252,165,165,.4);
+  --nav-grad: linear-gradient(90deg, #F87171, #FCA5A5);
 }
 
 /* Dark theme overrides */
