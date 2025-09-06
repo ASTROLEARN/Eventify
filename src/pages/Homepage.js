@@ -100,9 +100,35 @@ export function Homepage() {
   if (prev) prev.addEventListener('click', () => { index--; update(); });
   if (next) next.addEventListener('click', () => { index++; update(); });
   setActiveCard();
-  let autoplay = setInterval(() => { index++; update(); }, 5000);
+
+  // autoplay (smooth)
+  let autoplay = setInterval(() => { index++; update(); }, 4500);
   section.addEventListener('mouseenter', () => clearInterval(autoplay));
-  section.addEventListener('mouseleave', () => { autoplay = setInterval(() => { index++; update(); }, 5000); });
+  section.addEventListener('mouseleave', () => { autoplay = setInterval(() => { index++; update(); }, 4500); });
+
+  // swipe gestures for mobile
+  let startX = 0; let isTouching = false;
+  const threshold = 40;
+  const carousel = section.querySelector('.carousel');
+  if (carousel) {
+    carousel.addEventListener('touchstart', (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      startX = e.touches[0].clientX; isTouching = true; clearInterval(autoplay);
+    }, { passive: true });
+    carousel.addEventListener('touchmove', (e) => {
+      if (!isTouching || !track) return;
+    }, { passive: true });
+    carousel.addEventListener('touchend', (e) => {
+      if (!isTouching) return; isTouching = false;
+      const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+      const delta = endX - startX;
+      if (Math.abs(delta) > threshold) {
+        if (delta < 0) { index++; } else { index--; }
+        update();
+      }
+      autoplay = setInterval(() => { index++; update(); }, 4500);
+    });
+  }
 
   return section;
 }
