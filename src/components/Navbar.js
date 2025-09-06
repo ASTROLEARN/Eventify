@@ -25,6 +25,29 @@ export function renderNavbar() {
     </div>
   `;
 
+  // Theme toggle setup
+  const themeBtn = document.createElement('button');
+  themeBtn.className = 'theme-toggle';
+  themeBtn.type = 'button';
+  themeBtn.setAttribute('aria-label', 'Toggle theme');
+  const root = document.documentElement;
+  function setTheme(mode) {
+    root.setAttribute('data-theme', mode);
+    localStorage.setItem('theme', mode);
+    themeBtn.textContent = mode === 'dark' ? '☀️' : '🌙';
+  }
+  const stored = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(stored || (prefersDark ? 'dark' : 'light'));
+
+  const headerInner = nav.querySelector('.site-header__inner');
+  const menuToggleBtn = nav.querySelector('.menu-toggle');
+  if (headerInner && menuToggleBtn) headerInner.insertBefore(themeBtn, menuToggleBtn);
+  themeBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+  });
+
   const toggle = nav.querySelector('.menu-toggle');
   const mainNav = nav.querySelector('.main-nav');
   if (toggle && mainNav) {
