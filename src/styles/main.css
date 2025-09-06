@@ -144,6 +144,15 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .social-icon { color: var(--muted); transition: color .25s ease, transform .25s ease, filter .25s ease; }
 .social-icon:hover { color: var(--accent); transform: translateY(-2px); filter: drop-shadow(0 2px 10px var(--accent)); }
 
+/* Force light text in dark mode for key elements */
+:root[data-theme="dark"] .site-tagline,
+:root[data-theme="dark"] .hero-panel__title,
+:root[data-theme="dark"] .hero-panel__description,
+:root[data-theme="dark"] .category-label,
+:root[data-theme="dark"] .quote,
+:root[data-theme="dark"] .author,
+:root[data-theme="dark"] .site-footer__note { color: var(--ink) !important; }
+
 .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
 .tab { background: #e2e8f0; border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer; }
 .tab.active { background: var(--brand); color: #fff; }
