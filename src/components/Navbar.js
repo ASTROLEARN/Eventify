@@ -6,7 +6,7 @@ export function renderNavbar() {
   nav.innerHTML = `
     <div class="site-header__inner nav-bar">
       <a class="brand" href="#/" aria-label="Eventify Home">
-        <img class="brand-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F2211baeb183d454aaedf8ce769957f7a?format=webp&width=800" alt="Eventify logo" />
+        <img class="brand-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F5bbf49f45bce48719aeac92076406ba2?format=webp&width=800" alt="Eventify logo" />
         <span class="site-title">Eventify</span>
       </a>
       <p class="site-tagline">Your Smart Event Planner</p>
