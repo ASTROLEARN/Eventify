@@ -86,7 +86,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .category-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
 .category-button { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px; border-radius: 10px; border: 1px solid #e2e8f0; background: var(--card); box-shadow: var(--shadow); cursor: pointer; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background-color .3s ease, filter .3s ease; backdrop-filter: saturate(110%); }
 :root[data-theme="dark"] .category-button { background: rgba(31,41,55,0.5); border-color: rgba(148,163,184,0.2); }
-.category-button:hover { border-color: var(--brand); transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 28px rgba(2,6,23,0.12), 0 0 0 3px rgba(37,99,235,.12); backdrop-filter: blur(8px); }
+.category-button:hover { border-color: var(--brand); transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 28px rgba(2,6,23,0.12), 0 0 0 3px rgba(248,113,113,.18); backdrop-filter: blur(8px); }
 :root[data-theme="dark"] .category-button:hover { box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 4px rgba(124,58,237,.25); }
 .category-button:hover { border-color: var(--brand); transform: translateY(-3px) scale(1.03); box-shadow: var(--soft-shadow); }
 .category-button svg { transition: transform .3s ease, color .3s ease, filter .3s ease; color: var(--brand); }
