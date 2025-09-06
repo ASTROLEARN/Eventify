@@ -64,7 +64,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 
 /* Buttons */
 .primary-button { background-image: var(--btn-grad); color: #fff; border: 0; border-radius: 16px; padding: 12px 18px; font-size: 14px; line-height: 1; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; box-shadow: var(--button-shadow); will-change: transform; }
-.primary-button:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 0 0 4px rgba(37,99,235,.18), 0 12px 28px rgba(2,6,23,.18); }
+.primary-button:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 0 0 4px rgba(248,113,113,.25), 0 12px 28px rgba(2,6,23,.18); }
 :root[data-theme="dark"] .primary-button:hover { box-shadow: 0 0 0 4px rgba(124,58,237,.35), 0 14px 36px rgba(0,0,0,.6); }
 .secondary-button { background: #E2E8F0; color: #0f172a; border: 0; border-radius: 16px; padding: 12px 18px; font-size: 14px; cursor: pointer; transition: transform .06s ease, background .2s ease, color .2s ease; }
 .secondary-button:hover { transform: translateY(-1px); }
