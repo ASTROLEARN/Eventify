@@ -37,7 +37,9 @@ export function Homepage() {
             <button class="secondary-button" type="button" id="browse-vendors">Browse Vendors</button>
           </div>
         </div>
-        <div class="hero-image" role="img" aria-label="Elegant wedding celebration"></div>
+        <div class="hero-image" aria-label="Eventify logo showcase">
+          <img class="hero-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2Fb9db9893ba7e46dc89b170fd0a40f009?format=webp&width=800" alt="Eventify logo" />
+        </div>
       </div>
     </section>
     <div class="section-divider" aria-hidden="true"></div>
