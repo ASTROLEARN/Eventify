@@ -53,7 +53,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .site-header__inner { max-width: 1100px; margin: 0 auto; padding: 16px; display: flex; align-items: center; gap: 12px; }
 .nav-bar { display: grid; grid-template-columns: auto 1fr auto auto auto; gap: 12px; align-items: center; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 700; }
-.brand-logo { height: 28px; width: auto; display: block; border-radius: 6px; }
+.brand-logo { height: 40px; max-height: 40px; width: auto; object-fit: contain; display: block; border-radius: 6px; margin: 2px 0; }
 .site-title { margin: 0; font-family: 'Poppins', sans-serif; font-size: 20px; }
 .site-tagline { margin: 0; opacity: .9; font-size: 14px; color: var(--muted); }
 .main-nav { display: flex; gap: 12px; }
@@ -77,9 +77,10 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .primary-button { background-image: var(--btn-grad); color: #fff; border: 0; border-radius: var(--btn-radius); padding: 12px 18px; font-size: 14px; line-height: 1; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; box-shadow: var(--button-shadow); will-change: transform; }
 .primary-button:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 0 0 4px rgba(248,113,113,.18), 0 12px 28px rgba(2,6,23,.18); filter: saturate(110%); }
 :root[data-theme="dark"] .primary-button:hover { box-shadow: 0 0 0 4px rgba(255,107,107,.35), 0 14px 36px rgba(0,0,0,.6); }
-.secondary-button { background: var(--accent-2); color: var(--ink); border: 0; border-radius: var(--btn-radius); padding: 12px 18px; font-size: 14px; cursor: pointer; transition: transform .06s ease, background .2s ease, color .2s ease; }
-.secondary-button:hover { transform: translateY(-1px); filter: brightness(1.02); }
+.secondary-button { background: var(--accent-2); color: var(--ink); border: 0; border-radius: var(--btn-radius); padding: 12px 18px; font-size: 14px; cursor: pointer; transition: transform .06s ease, background .2s ease, color .2s ease; will-change: transform; }
+.secondary-button:hover { transform: translateY(-1px) scale(1.02); filter: brightness(1.02); box-shadow: 0 0 0 4px rgba(248,113,113,.14), 0 10px 24px rgba(2,6,23,.16); }
 :root[data-theme="dark"] .secondary-button { background: #253043; color: var(--ink); }
+:root[data-theme="dark"] .secondary-button:hover { box-shadow: 0 0 0 4px rgba(255,107,107,.28), 0 12px 28px rgba(0,0,0,.55); }
 
 /* Hero */
 .hero-banner { position: relative; background: var(--hero-radial), var(--bg); border-radius: var(--radius); }
@@ -99,7 +100,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 
 /* Categories */
 .category-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-.category-button { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px; border-radius: 10px; border: 1px solid rgba(148,163,184,0.35); background: var(--card); box-shadow: var(--shadow); cursor: pointer; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background-color .3s ease, filter .3s ease; backdrop-filter: saturate(110%); color: var(--ink); }
+.category-button { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px; border-radius: 10px; border: 1px solid rgba(148,163,184,0.35); background: var(--card); box-shadow: var(--shadow); cursor: pointer; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background-color .3s ease, filter .3s ease; backdrop-filter: saturate(110%); color: var(--ink); will-change: transform; }
 :root[data-theme="dark"] .category-button { background: rgba(26,34,51,0.9); border-color: rgba(156,163,175,0.25); }
 .category-button:hover { border-color: var(--brand); transform: translateY(-3px) scale(1.03); box-shadow: 0 0 0 3px rgba(248,113,113,.18), 0 12px 28px rgba(2,6,23,0.12); }
 :root[data-theme="dark"] .category-button:hover { box-shadow: 0 0 0 3px rgba(255,107,107,.35), 0 10px 28px rgba(0,0,0,0.5); }
@@ -108,13 +109,15 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .category-label { font-weight: 600; }
 
 /* Carousel */
-.carousel { position: relative; overflow: hidden; }
+.carousel { position: relative; overflow: hidden; padding: 0 44px; }
 .carousel-track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; transition: transform .5s cubic-bezier(.22,.61,.36,1); will-change: transform; }
-.carousel-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(26,34,51,0.75); color: #fff; border: 0; width: 36px; height: 36px; border-radius: 18px; cursor: pointer; }
+.carousel-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(26,34,51,0.75); color: #fff; border: 0; width: 36px; height: 36px; border-radius: 18px; cursor: pointer; z-index: 1; display: grid; place-items: center; transition: background .2s ease, transform .15s ease, box-shadow .2s ease; }
 :root:not([data-theme="dark"]) .carousel-control { background: rgba(30,41,59,0.65); }
-.carousel-control.prev { left: 8px; }
-.carousel-control.next { right: 8px; }
-.testimonial-card { padding: 20px; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); margin: 16px; border: 1px solid transparent; transition: box-shadow .3s ease, filter .3s ease; }
+.carousel-control:hover { background: rgba(248,113,113,0.18); color: var(--brand); box-shadow: 0 6px 16px rgba(2,6,23,0.18); transform: translateY(-50%) scale(1.06); }
+:root[data-theme="dark"] .carousel-control:hover { background: rgba(255,180,162,0.22); box-shadow: 0 8px 22px rgba(0,0,0,0.55); }
+.carousel-control.prev { left: 12px; }
+.carousel-control.next { right: 12px; }
+.testimonial-card { padding: 16px; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); margin: 16px; border: 1px solid transparent; transition: box-shadow .3s ease, filter .3s ease; }
 .testimonial-card.active { box-shadow: 0 0 0 1px var(--accent), 0 0 0 6px var(--brand-glow), 0 14px 40px rgba(2,6,23,0.18); }
 .stars { color: #eab308; margin-bottom: 8px; }
 .quote { color: var(--ink); }
