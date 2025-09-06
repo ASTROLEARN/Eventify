@@ -71,7 +71,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 :root[data-theme="dark"] .secondary-button { background: #374151; color: var(--ink); }
 
 /* Hero */
-.hero-banner { background: linear-gradient(140deg, #e0f2fe, #fff); }
+.hero-banner { background: linear-gradient(140deg, #fff, #FDE2D9); }
 .category-section { background: linear-gradient(180deg, rgba(2,6,23,0.03), rgba(2,6,23,0)); border-radius: var(--radius); padding: 16px; }
 .testimonials-section { background: linear-gradient(180deg, rgba(2,6,23,0.03), rgba(2,6,23,0)); border-radius: var(--radius); padding: 16px; }
 :root[data-theme="dark"] .hero-banner { background: linear-gradient(140deg, #0b1220, #111827); }
