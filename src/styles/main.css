@@ -54,7 +54,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .theme-toggle { background: var(--card); color: var(--ink); border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; padding: 8px 10px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; box-shadow: var(--shadow); transition: transform .12s ease, box-shadow .2s ease; }
 .theme-toggle:hover { transform: translateY(-1px); box-shadow: var(--soft-shadow); }
 :root[data-theme="dark"] .theme-toggle { border-color: rgba(255,255,255,0.25); }
-:root[data-theme="dark"] .site-header { background-image: linear-gradient(90deg, #1E3A8A, #7C3AED); box-shadow: var(--soft-shadow); }
+:root[data-theme="dark"] .site-header { background-image: var(--nav-grad); box-shadow: var(--soft-shadow); }
 
 .content-section { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
 .panel { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; margin-bottom: 24px; }
