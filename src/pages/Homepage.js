@@ -37,9 +37,12 @@ export function Homepage() {
             <button class="secondary-button" type="button" id="browse-vendors">Browse Vendors</button>
           </div>
         </div>
-        <div class="hero-image" role="img" aria-label="Elegant wedding celebration"></div>
+        <div class="hero-image" aria-label="Eventify logo showcase">
+          <img class="hero-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F5bbf49f45bce48719aeac92076406ba2?format=webp&width=800" alt="Eventify logo" />
+        </div>
       </div>
     </section>
+    <div class="section-divider" aria-hidden="true"></div>
 
     <section class="category-section">
       <h3 class="section-title">Quick Vendor Categories</h3>
@@ -51,6 +54,7 @@ export function Homepage() {
         ${categoryItem('Entertainment', icons.Entertainment)}
       </div>
     </section>
+    <div class="section-divider" aria-hidden="true"></div>
 
     <section class="testimonials-section" aria-label="Testimonials">
       <h3 class="section-title">What Users Say</h3>
