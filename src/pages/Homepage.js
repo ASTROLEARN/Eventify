@@ -30,6 +30,7 @@ export function Homepage() {
     <section class="hero-panel hero-banner">
       <div class="hero-grid">
         <div class="hero-copy">
+          <img class="brand-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F52b52c8881d34909a2587539b04297ce?format=webp&width=800" alt="Eventify logo" width="240" height="190"/>
           <h2 class="hero-panel__title">Eventify – Your Smart Event Planner</h2>
           <p class="hero-panel__description">Find vendors, manage budgets, and book everything you need for your perfect event in minutes.</p>
           <div class="hero-actions">
