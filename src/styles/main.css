@@ -140,7 +140,7 @@ body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Sego
 .footer-content { max-width: 1100px; margin: 0 auto; padding: 24px 16px; display: grid; gap: 12px; justify-items: center; }
 .footer-links { display: flex; gap: 12px; }
 .footer-link { color: var(--muted); text-decoration: none; }
-.footer-link:hover { text-decoration: underline; }
+.footer-link:hover { text-decoration: underline; color: var(--brand); }
 .social-links { display: flex; gap: 10px; }
 .social-icon { color: var(--muted); transition: color .25s ease, transform .25s ease, filter .25s ease; }
 .social-icon:hover { color: var(--accent); transform: translateY(-2px); filter: drop-shadow(0 2px 10px var(--accent)); }
