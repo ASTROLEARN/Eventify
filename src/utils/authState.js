@@ -37,8 +37,10 @@ class AuthenticationState {
         // Notify listeners
         this.notifyListeners(event, this.user);
         
-        // Update navigation
-        this.updateNavigation();
+        // Update navigation (but don't redirect during login process)
+        if (!window.isLoggingIn) {
+          this.updateNavigation();
+        }
       });
 
       this.initialized = true;

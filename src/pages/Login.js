@@ -1464,6 +1464,12 @@ export function Login() {
   const buttonLoading = loginButton.querySelector('.button-loading');
   const toastContainer = section.querySelector('#toast-container');
 
+  // Ensure all elements exist before proceeding
+  if (!form || !emailInput || !passwordInput || !loginButton || !toastContainer) {
+    console.error('Required form elements not found');
+    return section;
+  }
+
   // Enhanced Password Strength Calculator
   function calculatePasswordStrength(password) {
     if (!password) return { score: 0, feedback: 'Enter a password' };
@@ -1532,6 +1538,11 @@ export function Login() {
 
   // Toast Notification System
   function showToast(message, type = 'info', duration = 4000) {
+    if (!toastContainer) {
+      console.error('Toast container not found');
+      return;
+    }
+    
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.textContent = message;
@@ -1663,6 +1674,9 @@ export function Login() {
   // Enhanced Form Submission
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Form submitted - validating fields...');
     
     // Validate all fields
     const emailValidation = validateEmail(emailInput.value.trim());
@@ -1671,7 +1685,10 @@ export function Login() {
     const emailValid = updateFieldValidation(emailInput, emailWrapper, emailError, emailSuccess, emailValidation);
     const passwordValid = updateFieldValidation(passwordInput, passwordWrapper, passwordError, null, passwordValidation);
     
+    console.log('Validation results:', { emailValid, passwordValid });
+    
     if (!emailValid || !passwordValid) {
+      console.log('Validation failed - stopping submission');
       showToast('Please fix the errors above', 'error');
       // Focus first invalid field
       const firstInvalid = section.querySelector('.input-wrapper.error input');
@@ -1679,26 +1696,34 @@ export function Login() {
         firstInvalid.focus();
         firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-      return;
+      return false; // Explicitly return false to stop any further processing
     }
     
     const email = emailInput.value.trim();
     const password = passwordInput.value;
     const rememberMe = section.querySelector('#remember-me').checked;
     
+    console.log('Starting authentication process...');
+    
     try {
       // Enhanced loading state
       setLoadingState(true);
       showToast('Signing you in...', 'info', 2000);
       
+      // Set flag to prevent automatic redirects during login
+      window.isLoggingIn = true;
+      
       // Attempt authentication
+      console.log('Calling auth.signIn...');
       const { data, error } = await auth.signIn(email, password);
+      console.log('Auth response:', { data: !!data, error: !!error });
       
       if (error) {
         throw error;
       }
       
       // Success handling
+      console.log('Authentication successful!');
       setLoadingState(false);
       showSuccessState();
       
@@ -1714,13 +1739,19 @@ export function Login() {
       
       showToast('Welcome back! Redirecting...', 'success');
       
+      // Clear the login flag
+      window.isLoggingIn = false;
+      
       // Redirect with smooth transition
       setTimeout(() => {
+        console.log('Redirecting to dashboard...');
         window.location.hash = '#dashboard';
       }, 1500);
       
     } catch (error) {
       console.error('Login error:', error);
+      // Clear the login flag
+      window.isLoggingIn = false;
       setLoadingState(false);
       handleAuthError(error);
     }
