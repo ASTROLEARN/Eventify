@@ -1445,7 +1445,7 @@ export function Login() {
   `;
   document.head.appendChild(style);
 
-  // Form functionality
+  // Enhanced JavaScript functionality
   const form = section.querySelector('#login-form');
   const loadingDiv = section.querySelector('#auth-loading');
   const successDiv = section.querySelector('#auth-success');
@@ -1453,118 +1453,459 @@ export function Login() {
   const passwordInput = section.querySelector('#password');
   const emailError = section.querySelector('#email-error');
   const passwordError = section.querySelector('#password-error');
+  const emailSuccess = section.querySelector('#email-success');
+  const emailWrapper = emailInput.closest('.input-wrapper');
+  const passwordWrapper = passwordInput.closest('.input-wrapper');
+  const passwordStrength = section.querySelector('#password-strength');
+  const strengthBars = section.querySelectorAll('.strength-bar');
+  const strengthText = section.querySelector('#strength-text');
+  const loginButton = section.querySelector('#login-button');
+  const buttonContent = loginButton.querySelector('.button-content');
+  const buttonLoading = loginButton.querySelector('.button-loading');
+  const toastContainer = section.querySelector('#toast-container');
 
-  // Password toggle functionality
+  // Enhanced Password Strength Calculator
+  function calculatePasswordStrength(password) {
+    if (!password) return { score: 0, feedback: 'Enter a password' };
+    
+    let score = 0;
+    const feedback = [];
+    
+    // Length check
+    if (password.length >= 8) score += 1;
+    else feedback.push('At least 8 characters');
+    
+    // Complexity checks
+    if (/[a-z]/.test(password)) score += 1;
+    else feedback.push('Include lowercase letters');
+    
+    if (/[A-Z]/.test(password)) score += 1;
+    else feedback.push('Include uppercase letters');
+    
+    if (/\d/.test(password)) score += 1;
+    else feedback.push('Include numbers');
+    
+    if (/[^a-zA-Z\d]/.test(password)) score += 1;
+    else feedback.push('Include special characters');
+    
+    // Additional strength factors
+    if (password.length >= 12) score += 1;
+    if (/(.)\1{2,}/.test(password)) score -= 1; // Repeated characters
+    if (/123|abc|qwe|password|admin/i.test(password)) score -= 2; // Common patterns
+    
+    score = Math.max(0, Math.min(4, score));
+    
+    const strengthLevels = [
+      { text: 'Very weak', color: '#ef4444' },
+      { text: 'Weak', color: '#f59e0b' },
+      { text: 'Fair', color: '#3b82f6' },
+      { text: 'Good', color: '#10b981' },
+      { text: 'Strong', color: '#10b981' }
+    ];
+    
+    return {
+      score,
+      level: strengthLevels[score],
+      feedback: feedback.slice(0, 3) // Show max 3 suggestions
+    };
+  }
+
+  // Enhanced Email Validation
+  function validateEmail(email) {
+    if (!email) return { valid: false, message: 'Email is required' };
+    
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    
+    if (!emailRegex.test(email)) {
+      return { valid: false, message: 'Please enter a valid email address' };
+    }
+    
+    return { valid: true, message: 'Email looks good!' };
+  }
+
+  // Enhanced Password Validation
+  function validatePassword(password) {
+    if (!password) return { valid: false, message: 'Password is required' };
+    if (password.length < 6) return { valid: false, message: 'Password must be at least 6 characters' };
+    return { valid: true, message: '' };
+  }
+
+  // Toast Notification System
+  function showToast(message, type = 'info', duration = 4000) {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    
+    toastContainer.appendChild(toast);
+    
+    // Trigger animation
+    requestAnimationFrame(() => {
+      toast.classList.add('show');
+    });
+    
+    // Auto remove
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toastContainer.removeChild(toast);
+        }
+      }, 300);
+    }, duration);
+  }
+
+  // Enhanced Form Validation with Visual Feedback
+  function updateFieldValidation(input, wrapper, errorElement, successElement, validation) {
+    const { valid, message } = validation;
+    
+    // Clear previous states
+    wrapper.classList.remove('valid', 'error');
+    errorElement.classList.remove('visible');
+    if (successElement) successElement.classList.remove('visible');
+    
+    if (input.value.trim()) {
+      if (valid) {
+        wrapper.classList.add('valid');
+        if (successElement) {
+          successElement.textContent = message;
+          successElement.classList.add('visible');
+        }
+        // Update status icon
+        const statusIcon = wrapper.querySelector('.input-status');
+        if (statusIcon) {
+          statusIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>';
+        }
+      } else {
+        wrapper.classList.add('error');
+        errorElement.textContent = message;
+        errorElement.classList.add('visible');
+        // Update status icon
+        const statusIcon = wrapper.querySelector('.input-status');
+        if (statusIcon) {
+          statusIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+        }
+      }
+    }
+    
+    return valid;
+  }
+
+  // Enhanced Password Strength Display
+  function updatePasswordStrength(password) {
+    const strength = calculatePasswordStrength(password);
+    
+    if (password.length > 0) {
+      passwordStrength.classList.add('visible');
+      
+      // Update strength bars
+      strengthBars.forEach((bar, index) => {
+        bar.classList.toggle('active', index < strength.score);
+      });
+      
+      // Update strength text
+      strengthText.textContent = strength.level.text;
+      strengthText.style.color = strength.level.color;
+      
+    } else {
+      passwordStrength.classList.remove('visible');
+    }
+  }
+
+  // Enhanced Password Toggle
   const togglePassword = section.querySelector('#toggle-password');
+  const passwordShow = togglePassword.querySelector('.password-show');
+  const passwordHide = togglePassword.querySelector('.password-hide');
+  
   togglePassword.addEventListener('click', () => {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    passwordShow.style.display = isPassword ? 'none' : 'block';
+    passwordHide.style.display = isPassword ? 'block' : 'none';
+    
+    // Update aria-label
+    togglePassword.setAttribute('aria-label', 
+      isPassword ? 'Hide password' : 'Show password'
+    );
+    
+    // Brief focus animation
+    togglePassword.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+      togglePassword.style.transform = '';
+    }, 150);
   });
 
-  // Form validation
-  const validateForm = () => {
-    let isValid = true;
-    
-    // Email validation
-    const email = emailInput.value.trim();
-    if (!email) {
-      emailError.textContent = 'Email is required';
-      isValid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      emailError.textContent = 'Please enter a valid email address';
-      isValid = false;
-    } else {
-      emailError.textContent = '';
-    }
-    
-    // Password validation
-    const password = passwordInput.value;
-    if (!password) {
-      passwordError.textContent = 'Password is required';
-      isValid = false;
-    } else if (password.length < 6) {
-      passwordError.textContent = 'Password must be at least 6 characters';
-      isValid = false;
-    } else {
-      passwordError.textContent = '';
-    }
-    
-    return isValid;
-  };
+  // Real-time Email Validation
+  let emailTimeout;
+  emailInput.addEventListener('input', () => {
+    clearTimeout(emailTimeout);
+    emailTimeout = setTimeout(() => {
+      const validation = validateEmail(emailInput.value.trim());
+      updateFieldValidation(emailInput, emailWrapper, emailError, emailSuccess, validation);
+    }, 300);
+  });
 
-  // Form submission
+  // Real-time Password Validation and Strength
+  let passwordTimeout;
+  passwordInput.addEventListener('input', () => {
+    clearTimeout(passwordTimeout);
+    const password = passwordInput.value;
+    
+    // Update strength indicator
+    updatePasswordStrength(password);
+    
+    // Validate password
+    passwordTimeout = setTimeout(() => {
+      const validation = validatePassword(password);
+      updateFieldValidation(passwordInput, passwordWrapper, passwordError, null, validation);
+    }, 300);
+  });
+
+  // Enhanced Form Submission
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    if (!validateForm()) return;
+    // Validate all fields
+    const emailValidation = validateEmail(emailInput.value.trim());
+    const passwordValidation = validatePassword(passwordInput.value);
+    
+    const emailValid = updateFieldValidation(emailInput, emailWrapper, emailError, emailSuccess, emailValidation);
+    const passwordValid = updateFieldValidation(passwordInput, passwordWrapper, passwordError, null, passwordValidation);
+    
+    if (!emailValid || !passwordValid) {
+      showToast('Please fix the errors above', 'error');
+      // Focus first invalid field
+      const firstInvalid = section.querySelector('.input-wrapper.error input');
+      if (firstInvalid) {
+        firstInvalid.focus();
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
     
     const email = emailInput.value.trim();
     const password = passwordInput.value;
+    const rememberMe = section.querySelector('#remember-me').checked;
     
     try {
-      // Show loading state
-      form.style.display = 'none';
-      loadingDiv.style.display = 'block';
+      // Enhanced loading state
+      setLoadingState(true);
+      showToast('Signing you in...', 'info', 2000);
       
+      // Attempt authentication
       const { data, error } = await auth.signIn(email, password);
       
       if (error) {
         throw error;
       }
       
-      // Show success state
-      loadingDiv.style.display = 'none';
-      successDiv.style.display = 'block';
+      // Success handling
+      setLoadingState(false);
+      showSuccessState();
       
       // Update auth state
       AuthState.setUser(data.user);
       
-      // Redirect to dashboard after short delay
+      // Handle remember me
+      if (rememberMe) {
+        localStorage.setItem('eventify_remember_email', email);
+      } else {
+        localStorage.removeItem('eventify_remember_email');
+      }
+      
+      showToast('Welcome back! Redirecting...', 'success');
+      
+      // Redirect with smooth transition
       setTimeout(() => {
         window.location.hash = '#dashboard';
       }, 1500);
       
     } catch (error) {
       console.error('Login error:', error);
-      
-      // Show form again
-      loadingDiv.style.display = 'none';
-      form.style.display = 'block';
-      
-      // Show error message
-      if (error.message.includes('Invalid login credentials')) {
-        passwordError.textContent = 'Invalid email or password';
+      setLoadingState(false);
+      handleAuthError(error);
+    }
+  });
+
+  // Enhanced Loading State Management
+  function setLoadingState(loading) {
+    loginButton.disabled = loading;
+    
+    if (loading) {
+      buttonContent.style.opacity = '0';
+      buttonLoading.style.display = 'flex';
+      loginButton.style.cursor = 'not-allowed';
+    } else {
+      buttonContent.style.opacity = '1';
+      buttonLoading.style.display = 'none';
+      loginButton.style.cursor = 'pointer';
+    }
+  }
+
+  // Enhanced Success State
+  function showSuccessState() {
+    form.style.display = 'none';
+    successDiv.style.display = 'block';
+    
+    // Trigger success animation
+    const successIcon = successDiv.querySelector('.success-icon svg');
+    if (successIcon) {
+      successIcon.style.strokeDasharray = '100';
+      successIcon.style.strokeDashoffset = '100';
+      successIcon.style.animation = 'drawCheck 0.8s ease-in-out forwards';
+    }
+  }
+
+  // Enhanced Error Handling
+  function handleAuthError(error) {
+    let userMessage = 'An error occurred during sign in';
+    let fieldToFocus = null;
+    
+    if (error.message) {
+      if (error.message.includes('Invalid login credentials') || 
+          error.message.includes('Invalid email or password')) {
+        userMessage = 'Invalid email or password. Please try again.';
+        fieldToFocus = passwordInput;
+        updateFieldValidation(passwordInput, passwordWrapper, passwordError, null, 
+          { valid: false, message: 'Invalid email or password' });
+      } else if (error.message.includes('Email not confirmed')) {
+        userMessage = 'Please check your email and click the confirmation link.';
+        fieldToFocus = emailInput;
+      } else if (error.message.includes('Too many requests')) {
+        userMessage = 'Too many attempts. Please wait a moment and try again.';
+      } else if (error.message.includes('Network')) {
+        userMessage = 'Network error. Please check your connection and try again.';
       } else {
-        passwordError.textContent = error.message || 'An error occurred during login';
+        userMessage = error.message;
       }
     }
-  });
+    
+    showToast(userMessage, 'error', 5000);
+    
+    // Focus relevant field
+    if (fieldToFocus) {
+      setTimeout(() => {
+        fieldToFocus.focus();
+        fieldToFocus.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }
+  }
 
-  // Google auth
+  // Enhanced Google Authentication
   section.querySelector('#google-login').addEventListener('click', async () => {
     try {
+      showToast('Redirecting to Google...', 'info');
       const { data, error } = await auth.signInWithGoogle();
       if (error) throw error;
-      
-      // Google auth will redirect, so no need to handle success here
     } catch (error) {
       console.error('Google login error:', error);
-      passwordError.textContent = 'Google login failed. Please try again.';
+      showToast('Google sign in failed. Please try again.', 'error');
     }
   });
 
-  // Add scroll animation observer
-  const observer = new IntersectionObserver((entries) => {
+  // Additional Social Login Handlers (placeholder functionality)
+  section.querySelector('.apple-button')?.addEventListener('click', () => {
+    showToast('Apple Sign In coming soon!', 'info');
+  });
+  
+  section.querySelector('.facebook-button')?.addEventListener('click', () => {
+    showToast('Facebook Sign In coming soon!', 'info');
+  });
+  
+  section.querySelector('.linkedin-button')?.addEventListener('click', () => {
+    showToast('LinkedIn Sign In coming soon!', 'info');
+  });
+
+  // Smart Email Suggestions (restore remembered email)
+  const rememberedEmail = localStorage.getItem('eventify_remember_email');
+  if (rememberedEmail) {
+    emailInput.value = rememberedEmail;
+    section.querySelector('#remember-me').checked = true;
+    // Trigger validation
+    const validation = validateEmail(rememberedEmail);
+    updateFieldValidation(emailInput, emailWrapper, emailError, emailSuccess, validation);
+  }
+
+  // Enhanced Accessibility Features
+  function setupAccessibility() {
+    // Add live region announcements
+    const liveRegion = document.createElement('div');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+    liveRegion.className = 'sr-only';
+    liveRegion.id = 'live-region';
+    section.appendChild(liveRegion);
+  }
+
+  // Keyboard Navigation Enhancements
+  function setupKeyboardNavigation() {
+    // Enhanced form navigation
+    const inputs = section.querySelectorAll('input, button');
+    
+    inputs.forEach((input, index) => {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && input.type !== 'submit') {
+          e.preventDefault();
+          const nextInput = inputs[index + 1];
+          if (nextInput) {
+            nextInput.focus();
+          }
+        }
+      });
+    });
+    
+    // Escape key handling
+    section.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const activeToast = toastContainer.querySelector('.toast.show');
+        if (activeToast) {
+          activeToast.classList.remove('show');
+        }
+      }
+    });
+  }
+
+  // Enhanced Animation Observer
+  const enhancedObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('animate');
+        
+        // Stagger child animations
+        const children = entry.target.querySelectorAll('.form-group, .social-button, .auth-footer > *');
+        children.forEach((child, index) => {
+          setTimeout(() => {
+            child.style.opacity = '1';
+            child.style.transform = 'translateY(0)';
+          }, index * 100);
+        });
       }
     });
-  }, { threshold: 0.1 });
-
-  section.querySelectorAll('.animate-on-scroll').forEach(el => {
-    observer.observe(el);
+  }, { 
+    threshold: 0.1,
+    rootMargin: '50px'
   });
+
+  // Initialize enhanced features
+  function initializeEnhancements() {
+    setupAccessibility();
+    setupKeyboardNavigation();
+    
+    // Add stagger animation styles
+    const children = section.querySelectorAll('.form-group, .social-button, .auth-footer > *');
+    children.forEach(child => {
+      child.style.opacity = '0';
+      child.style.transform = 'translateY(20px)';
+      child.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+    
+    // Observe auth card for enhanced animations
+    section.querySelectorAll('.animate-on-scroll').forEach(el => {
+      enhancedObserver.observe(el);
+    });
+  }
+
+  // Initialize all enhancements
+  initializeEnhancements();
 
   return section;
 }
