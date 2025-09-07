@@ -13,14 +13,15 @@ const { asyncHandler } = require('../middleware/errorHandler');
 const submitContactForm = asyncHandler(async (req, res) => {
   const { name, email, message } = req.body;
 
-  // Create contact entry
+  // Create contact entry (bypassing RLS for public submissions)
   const { data: contactEntry, error } = await supabase
-    .from('contact')
+    .from('contact_submissions')
     .insert([
       {
         name: name.trim(),
         email: email.toLowerCase().trim(),
-        message: message.trim()
+        message: message.trim(),
+        created_at: new Date().toISOString()
       }
     ])
     .select('id, name, email, message, created_at')
@@ -52,7 +53,7 @@ const getAllContactSubmissions = asyncHandler(async (req, res) => {
   // and only accessible by admin users
   
   const { data: submissions, error, count } = await supabase
-    .from('contact')
+    .from('contact_submissions')
     .select('*', { count: 'exact' })
     .order('created_at', { ascending: false })
     .range(offset, offset + limit - 1);
@@ -85,7 +86,7 @@ const getContactSubmissionById = asyncHandler(async (req, res) => {
   // and only accessible by admin users
 
   const { data: submission, error } = await supabase
-    .from('contact')
+    .from('contact_submissions')
     .select('*')
     .eq('id', id)
     .single();
@@ -108,7 +109,7 @@ const deleteContactSubmission = asyncHandler(async (req, res) => {
   // and only accessible by admin users
 
   const { data: existingSubmission, error: findError } = await supabase
-    .from('contact')
+    .from('contact_submissions')
     .select('id')
     .eq('id', id)
     .single();
@@ -118,7 +119,7 @@ const deleteContactSubmission = asyncHandler(async (req, res) => {
   }
 
   const { error: deleteError } = await supabase
-    .from('contact')
+    .from('contact_submissions')
     .delete()
     .eq('id', id);
 
@@ -139,7 +140,7 @@ const getContactStats = asyncHandler(async (req, res) => {
   // and only accessible by admin users
 
   const { data: submissions, error } = await supabase
-    .from('contact')
+    .from('contact_submissions')
     .select('created_at');
 
   if (error) {
