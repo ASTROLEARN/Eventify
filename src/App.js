@@ -9,6 +9,7 @@ import { Vendors } from './pages/Vendors.js';
 import { Dashboard } from './pages/Dashboard.js';
 import { Contact } from './pages/Contact.js';
 import { Blog } from './pages/Blog.js';
+import { Auth } from './pages/Auth.js';
 
 const routes = {
   '/': Homepage,
@@ -18,7 +19,8 @@ const routes = {
   '/vendors': Vendors,
   '/dashboard': Dashboard,
   '/contact': Contact,
-  '/blog': Blog
+  '/blog': Blog,
+  '/auth': Auth
 };
 
 function parseLocation() {
