@@ -88,7 +88,9 @@ const optionalAuth = async (req, res, next) => {
 const generateToken = (user) => {
   const payload = {
     userId: user.id,
-    email: user.email
+    auth_uid: user.id, // Required for Supabase RLS compatibility
+    email: user.email,
+    iat: Math.floor(Date.now() / 1000)
   };
 
   return jwt.sign(payload, process.env.JWT_SECRET, {

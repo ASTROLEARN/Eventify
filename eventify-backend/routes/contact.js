@@ -8,6 +8,7 @@ const {
   getContactStats
 } = require('../controllers/contactController');
 const { authenticateToken } = require('../middleware/auth');
+const { requireAdmin } = require('../middleware/adminAuth');
 const {
   validateContact,
   validateUUIDParam,
@@ -24,43 +25,43 @@ router.post('/', validateContact, submitContactForm);
 /**
  * @route   GET /api/contact
  * @desc    Get all contact submissions (admin only)
- * @access  Private
- * @note    In a real application, this should be protected with admin role check
+ * @access  Private (Admin only)
  */
 router.get('/', [
-  authenticateToken, // Add admin role check here in real app
+  authenticateToken,
+  requireAdmin,
   validatePagination
 ], getAllContactSubmissions);
 
 /**
  * @route   GET /api/contact/stats
  * @desc    Get contact form statistics (admin only)
- * @access  Private
- * @note    In a real application, this should be protected with admin role check
+ * @access  Private (Admin only)
  */
 router.get('/stats', [
-  authenticateToken // Add admin role check here in real app
+  authenticateToken,
+  requireAdmin
 ], getContactStats);
 
 /**
  * @route   GET /api/contact/:id
  * @desc    Get single contact submission by ID (admin only)
- * @access  Private
- * @note    In a real application, this should be protected with admin role check
+ * @access  Private (Admin only)
  */
 router.get('/:id', [
-  authenticateToken, // Add admin role check here in real app
+  authenticateToken,
+  requireAdmin,
   validateUUIDParam('id')
 ], getContactSubmissionById);
 
 /**
  * @route   DELETE /api/contact/:id
  * @desc    Delete contact submission (admin only)
- * @access  Private
- * @note    In a real application, this should be protected with admin role check
+ * @access  Private (Admin only)
  */
 router.delete('/:id', [
-  authenticateToken, // Add admin role check here in real app
+  authenticateToken,
+  requireAdmin,
   validateUUIDParam('id')
 ], deleteContactSubmission);
 

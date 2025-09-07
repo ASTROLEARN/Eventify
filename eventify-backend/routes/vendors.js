@@ -10,6 +10,7 @@ const {
   getAvailableVendors
 } = require('../controllers/vendorController');
 const { authenticateToken } = require('../middleware/auth');
+const { requireAdmin } = require('../middleware/adminAuth');
 const {
   validateVendor,
   validateUUIDParam,
@@ -62,20 +63,22 @@ router.get('/:id', validateUUIDParam('id'), getVendorById);
 /**
  * @route   POST /api/vendors
  * @desc    Create new vendor
- * @access  Private
+ * @access  Private (Admin only)
  */
 router.post('/', [
   authenticateToken,
+  requireAdmin,
   validateVendor
 ], createVendor);
 
 /**
  * @route   PUT /api/vendors/:id
  * @desc    Update vendor
- * @access  Private
+ * @access  Private (Admin only)
  */
 router.put('/:id', [
   authenticateToken,
+  requireAdmin,
   validateUUIDParam('id'),
   validateVendor
 ], updateVendor);
@@ -83,10 +86,11 @@ router.put('/:id', [
 /**
  * @route   DELETE /api/vendors/:id
  * @desc    Delete vendor
- * @access  Private
+ * @access  Private (Admin only)
  */
 router.delete('/:id', [
   authenticateToken,
+  requireAdmin,
   validateUUIDParam('id')
 ], deleteVendor);
 
