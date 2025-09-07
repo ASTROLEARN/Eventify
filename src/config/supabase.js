@@ -1,7 +1,8 @@
 /**
  * Supabase client configuration for frontend
  */
-import { createClient } from '@supabase/supabase-js';
+// Use the global supabase object from CDN
+const { createClient } = window.supabase;
 
 import { env, validateEnvVars, initializeEnv } from './env.js';
 
