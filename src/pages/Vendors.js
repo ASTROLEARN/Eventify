@@ -92,7 +92,7 @@ export function Vendors() {
 
   form.addEventListener('submit', (e) => { e.preventDefault(); applyFilters(); });
 
-  // preselect category from URL
+  // preselect category from URL and apply filters
   try {
     const url = new URL(window.location.href);
     const cat = url.hash.split('?')[1];
@@ -102,6 +102,10 @@ export function Vendors() {
       if (category) {
         const select = form.querySelector('select[name="category"]');
         if (select) select.value = category;
+        applyFilters();
+        const panel = el.querySelector('.panel');
+        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return el;
       }
     }
   } catch {}
