@@ -338,7 +338,7 @@ export const AuthState = new AuthenticationState();
 export const requireAuth = (callback) => {
   return (...args) => {
     if (!AuthState.isAuthenticated()) {
-      window.location.hash = '#login';
+      window.location.hash = '#/login';
       return;
     }
     return callback(...args);
@@ -347,7 +347,7 @@ export const requireAuth = (callback) => {
 
 export const redirectIfAuthenticated = () => {
   if (AuthState.isAuthenticated()) {
-    window.location.hash = '#dashboard';
+    window.location.hash = '#/dashboard';
     return true;
   }
   return false;
