@@ -5,8 +5,8 @@
 
 // Environment configuration for Replit
 const envConfig = {
-  SUPABASE_URL: 'https://kduqigxfckhkoesghbct.supabase.co',
-  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkdXFpZ3hmY2toa29lc2doYmN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNDQyMzEsImV4cCI6MjA3MjgyMDIzMX0.98kfcPWk7XDsBlYQTYcag4ZwCNLrLPo2RMBJs9fnSK0'
+  SUPABASE_URL: window.ENV?.SUPABASE_URL || 'https://kduqigxfckhkoesghbct.supabase.co',
+  SUPABASE_ANON_KEY: window.ENV?.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkdXFpZ3hmY2toa29lc2doYmN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNDQyMzEsImV4cCI6MjA3MjgyMDIzMX0.98kfcPWk7XDsBlYQTYcag4ZwCNLrLPo2RMBJs9fnSK0'
 };
 
 export const env = envConfig;
