@@ -4,10 +4,8 @@ function vendorCard(v) {
       <img src="${v.photo}" alt="${v.name} promo" width="320" height="200" loading="lazy" />
       <div class="vendor-info">
         <h4>${v.name}</h4>
-        <p class="muted">${v.category} • ${v.services.join(', ')}</p>
-        <p><strong>Price Range:</strong> ${v.priceRange}</p>
-        <p class="rating">${'★'.repeat(v.rating)}${'☆'.repeat(5 - v.rating)} <span class="muted">(${v.reviews} reviews)</span></p>
-        <button class="primary-button check-availability" data-id="${v.id}" type="button">Check Availability</button>
+        <p class="rating">${'★'.repeat(v.rating)}${'☆'.repeat(5 - v.rating)} <span class="muted">(${v.rating}★)</span></p>
+        <button class="primary-button view-profile" data-id="${v.id}" type="button">View Profile</button>
       </div>
     </article>
   `;
@@ -70,9 +68,13 @@ export function Vendors() {
 
   function render(list) {
     if (!grid) return;
+    if (!list.length) {
+      grid.innerHTML = `<div class="card">No vendors available with 4+ stars in this category</div>`;
+      return;
+    }
     grid.innerHTML = list.map(vendorCard).join('');
-    grid.querySelectorAll('.check-availability').forEach(btn => {
-      btn.addEventListener('click', () => alert('Availability confirmed! Slots open for selected date.'));
+    grid.querySelectorAll('.view-profile').forEach(btn => {
+      btn.addEventListener('click', () => alert('Viewing vendor profile (demo)'));
     });
   }
 
@@ -92,21 +94,27 @@ export function Vendors() {
 
   form.addEventListener('submit', (e) => { e.preventDefault(); applyFilters(); });
 
-  // preselect category from URL and apply filters
+  // preselect from URL: supports lowercase category and minRating
   try {
     const url = new URL(window.location.href);
-    const cat = url.hash.split('?')[1];
-    if (cat) {
-      const params = new URLSearchParams(cat);
-      const category = params.get('category');
-      if (category) {
+    const q = url.hash.split('?')[1];
+    if (q) {
+      const params = new URLSearchParams(q);
+      const categoryParam = (params.get('category') || '').toString();
+      const minRating = Number(params.get('minRating')) || 0;
+      const toTitle = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
+      if (categoryParam) {
         const select = form.querySelector('select[name="category"]');
-        if (select) select.value = category;
-        applyFilters();
-        const panel = el.querySelector('.panel');
-        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return el;
+        if (select) select.value = toTitle(categoryParam);
       }
+      if (minRating) {
+        const ratingSelect = form.querySelector('select[name="rating"]');
+        if (ratingSelect) ratingSelect.value = String(minRating);
+      }
+      applyFilters();
+      const panel = el.querySelector('.panel');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return el;
     }
   } catch {}
 
