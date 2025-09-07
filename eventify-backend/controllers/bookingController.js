@@ -87,7 +87,7 @@ const getBookingById = asyncHandler(async (req, res) => {
         event_date,
         location,
         category,
-        users:created_by (
+        profiles:created_by (
           id,
           name,
           email

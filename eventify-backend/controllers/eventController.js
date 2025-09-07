@@ -32,7 +32,7 @@ const getAllEvents = asyncHandler(async (req, res) => {
         created_at,
         updated_at,
         created_by,
-        users!created_by (
+        profiles!created_by (
           id,
           name,
           email
@@ -96,7 +96,7 @@ const getEventById = asyncHandler(async (req, res) => {
       created_at,
       updated_at,
       created_by,
-      users!created_by (
+      profiles!created_by (
         id,
         name,
         email
@@ -154,7 +154,7 @@ const createEvent = asyncHandler(async (req, res) => {
       category,
       created_at,
       updated_at,
-      users:created_by (
+      profiles:created_by (
         id,
         name,
         email
@@ -222,7 +222,7 @@ const updateEvent = asyncHandler(async (req, res) => {
       category,
       created_at,
       updated_at,
-      users:created_by (
+      profiles:created_by (
         id,
         name,
         email
