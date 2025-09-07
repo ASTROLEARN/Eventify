@@ -1,4 +1,4 @@
-const { supabase } = require('../config/database');
+const { supabase, supabaseAdmin } = require('../config/database');
 const { 
   successResponse, 
   errorResponse, 
@@ -13,13 +13,14 @@ const { asyncHandler } = require('../middleware/errorHandler');
 const submitContactForm = asyncHandler(async (req, res) => {
   const { name, email, message } = req.body;
 
-  // Create contact entry (bypassing RLS for public submissions)
-  const { data: contactEntry, error } = await supabase
+  // Create contact entry (using admin client to bypass RLS for public submissions)
+  const { data: contactEntry, error } = await supabaseAdmin
     .from('contact_submissions')
     .insert([
       {
         name: name.trim(),
         email: email.toLowerCase().trim(),
+        subject: 'General Inquiry', // Default subject for contact form
         message: message.trim(),
         created_at: new Date().toISOString()
       }

@@ -9,10 +9,25 @@ if (missingEnvVars.length > 0) {
   throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
 }
 
-// Create Supabase client
+// Create Supabase client for regular operations
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY,
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    },
+    db: {
+      schema: 'public'
+    }
+  }
+);
+
+// Create admin client for bypassing RLS when needed (using service role if available)
+const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY,
   {
     auth: {
       autoRefreshToken: false,
@@ -47,5 +62,6 @@ const testConnection = async () => {
 
 module.exports = {
   supabase,
+  supabaseAdmin,
   testConnection
 };
