@@ -6,6 +6,10 @@
   --ink: #1F2937;                /* Primary text (Charcoal Gray) */
   --muted: #64748B;              /* Secondary text */
 
+  /* Typography */
+  --font-sans: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-script: 'Dancing Script', 'Pacifico', 'Great Vibes', cursive;
+
   --brand: #F87171;              /* Warm Coral */
   --accent: #F87171;             /* Accent uses coral */
   --accent-2: #FDE2D9;           /* Soft Peach for highlights */
