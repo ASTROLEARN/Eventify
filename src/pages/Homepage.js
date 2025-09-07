@@ -30,22 +30,75 @@ export function Homepage() {
     <section class="hero-panel hero-banner">
       <div class="hero-grid">
         <div class="hero-copy">
-          <h2 class="hero-panel__title">Eventify – Your Event Your Control</h2>
-          <p class="hero-panel__description">Find vendors, manage budgets, and book everything you need for your perfect event in minutes.</p>
+          <div class="hero-badge">✨ #1 Event Planning Platform</div>
+          <h1 class="hero-panel__title">Create Unforgettable Events in <span class="title-highlight">Minutes</span></h1>
+          <p class="hero-panel__description">From intimate gatherings to grand celebrations, Eventify connects you with the perfect vendors, manages your budget, and brings your vision to life effortlessly.</p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">10K+</span>
+              <span class="stat-label">Events Created</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Trusted Vendors</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">98%</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+          </div>
           <div class="hero-actions">
-            <button id="cta" class="primary-button hero-cta" type="button">Plan My Event</button>
-            <button class="secondary-button" type="button" id="browse-vendors">Browse Vendors</button>
+            <button id="cta" class="primary-button hero-cta" type="button">
+              <span>Start Planning Now</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5 12h14m-7-7l7 7-7 7"/>
+              </svg>
+            </button>
+            <button class="secondary-button" type="button" id="browse-vendors">
+              <span>Browse Vendors</span>
+            </button>
+          </div>
+          <div class="hero-trust">
+            <p class="trust-text">Trusted by event planners nationwide</p>
+            <div class="trust-indicators">
+              <span class="trust-badge">⭐ 4.9/5 Rating</span>
+              <span class="trust-badge">🔒 Secure Payments</span>
+              <span class="trust-badge">📞 24/7 Support</span>
+            </div>
           </div>
         </div>
-        <div class="hero-image" aria-label="Eventify logo showcase">
-          <img class="hero-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F5bbf49f45bce48719aeac92076406ba2?format=webp&width=800" alt="Eventify logo" />
+        <div class="hero-visual">
+          <div class="hero-image-container">
+            <div class="floating-card card-1">
+              <span class="card-emoji">🎉</span>
+              <span class="card-text">Birthday Party</span>
+            </div>
+            <div class="floating-card card-2">
+              <span class="card-emoji">💒</span>
+              <span class="card-text">Wedding</span>
+            </div>
+            <div class="floating-card card-3">
+              <span class="card-emoji">🏢</span>
+              <span class="card-text">Corporate Event</span>
+            </div>
+            <div class="hero-main-visual">
+              <div class="visual-backdrop"></div>
+              <div class="event-preview">
+                <h3>Your Dream Event</h3>
+                <p>Everything planned to perfection</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
     <div class="section-divider" aria-hidden="true"></div>
 
     <section class="category-section">
-      <h3 class="section-title">Quick Vendor Categories</h3>
+      <div class="section-header">
+        <h3 class="section-title">Find Perfect Vendors</h3>
+        <p class="section-subtitle">Browse our curated network of top-rated event professionals</p>
+      </div>
       <div class="category-grid">
         ${categoryItem('Catering', icons.Catering)}
         ${categoryItem('Decoration', icons.Decoration)}
@@ -53,11 +106,22 @@ export function Homepage() {
         ${categoryItem('Venue', icons.Venue)}
         ${categoryItem('Entertainment', icons.Entertainment)}
       </div>
+      <div class="category-footer">
+        <button class="view-all-btn" id="view-all-vendors">
+          View All Categories
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 12h14m-7-7l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
     </section>
     <div class="section-divider" aria-hidden="true"></div>
 
     <section class="testimonials-section" aria-label="Testimonials">
-      <h3 class="section-title">What Users Say</h3>
+      <div class="section-header">
+        <h3 class="section-title">Success Stories</h3>
+        <p class="section-subtitle">See what our customers are saying about their events</p>
+      </div>
       <div class="carousel">
         <button class="carousel-control prev" aria-label="Previous testimonial">‹</button>
         <div class="carousel-track">
@@ -72,10 +136,37 @@ export function Homepage() {
         <button class="carousel-control next" aria-label="Next testimonial">›</button>
       </div>
     </section>
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <section class="cta-section">
+      <div class="cta-content">
+        <h3 class="cta-title">Ready to Plan Your Next Event?</h3>
+        <p class="cta-description">Join thousands of happy customers who trust Eventify for their special moments</p>
+        <div class="cta-actions">
+          <button class="primary-button cta-primary" id="get-started">
+            Get Started Free
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5 12h14m-7-7l7 7-7 7"/>
+            </svg>
+          </button>
+          <button class="secondary-button" id="learn-more">Learn More</button>
+        </div>
+      </div>
+    </section>
   `;
 
   const browse = section.querySelector('#browse-vendors');
   if (browse) browse.addEventListener('click', () => navigate('/vendors'));
+
+  // New button event listeners
+  const viewAllVendors = section.querySelector('#view-all-vendors');
+  if (viewAllVendors) viewAllVendors.addEventListener('click', () => navigate('/vendors'));
+
+  const getStarted = section.querySelector('#get-started');
+  if (getStarted) getStarted.addEventListener('click', () => navigate('/auth'));
+
+  const learnMore = section.querySelector('#learn-more');
+  if (learnMore) learnMore.addEventListener('click', () => navigate('/about'));
 
   // category buttons route with filter param
   section.querySelectorAll('.category-button').forEach(btn => {
