@@ -277,7 +277,7 @@ textarea.input-control { resize: vertical; }
   .main-nav { display: none; position: absolute; top: 56px; left: 0; right: 0; background: var(--bg); padding: 12px 16px; }
   .main-nav.open { display: grid; }
   .menu-toggle { display: inline-block; }
-  .nav-bar { grid-template-columns: auto 1fr auto auto; }
+  .nav-bar { grid-template-columns: auto 1fr auto; }
   .hero-grid { grid-template-columns: 1fr; }
   .category-grid { grid-template-columns: repeat(2, 1fr); }
   .features-grid { grid-template-columns: 1fr; }
