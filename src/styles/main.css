@@ -162,6 +162,8 @@ body { font-family: var(--font-sans); color: var(--ink); background: var(--bg); 
 :root[data-theme="dark"] .vendor-info .price .price-number { color: #fff; }
 .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; align-items: center; }
 .hero-copy { padding: 8px; }
+.hero-panel__title { font-family: var(--font-script); font-size: clamp(28px, 3.2vw, 44px); line-height: 1.2; color: #1a1a1a; }
+:root[data-theme="dark"] .hero-panel__title { color: #fff; }
 .hero-cta { margin-right: 10px; }
 .hero-image { min-height: auto; padding: 0; width: max-content; max-width: 100%; height: auto; border-radius: var(--radius); box-shadow: var(--shadow); background: rgba(0,0,0,0.25); display: grid; place-items: center; justify-self: center; }
 .hero-logo { width: 100%; max-width: 420px; height: auto; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 4px 14px rgba(248,113,113,.35)); display: block; }
