@@ -75,8 +75,8 @@ export function Vendors() {
       return;
     }
     grid.innerHTML = list.map(vendorCard).join('');
-    grid.querySelectorAll('.view-profile').forEach(btn => {
-      btn.addEventListener('click', () => alert('Viewing vendor profile (demo)'));
+    grid.querySelectorAll('.check-availability').forEach(btn => {
+      btn.addEventListener('click', () => alert('Availability confirmed! Slots open for selected date.'));
     });
   }
 
