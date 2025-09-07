@@ -30,7 +30,7 @@ export function Homepage() {
     <section class="hero-panel hero-banner">
       <div class="hero-grid">
         <div class="hero-copy">
-          <h2 class="hero-panel__title">Eventify – Your Smart Event Planner</h2>
+          <h2 class="hero-panel__title">Eventify – Your Event Your Control</h2>
           <p class="hero-panel__description">Find vendors, manage budgets, and book everything you need for your perfect event in minutes.</p>
           <div class="hero-actions">
             <button id="cta" class="primary-button hero-cta" type="button">Plan My Event</button>
@@ -81,7 +81,8 @@ export function Homepage() {
   section.querySelectorAll('.category-button').forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.getAttribute('data-category');
-      navigate(`/vendors?category=${encodeURIComponent(cat)}`);
+      const category = String(cat || '').toLowerCase();
+      navigate(`/vendors?category=${encodeURIComponent(category)}&minRating=4`);
     });
   });
 

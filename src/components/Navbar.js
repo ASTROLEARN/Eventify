@@ -5,11 +5,13 @@ export function renderNavbar() {
   nav.className = 'site-header';
   nav.innerHTML = `
     <div class="site-header__inner nav-bar">
-      <a class="brand" href="#/" aria-label="Eventify Home">
-        <img class="brand-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F5bbf49f45bce48719aeac92076406ba2?format=webp&width=800" alt="Eventify logo" />
-        <span class="site-title">Eventify</span>
-      </a>
-      <p class="site-tagline">Your Smart Event Planner</p>
+      <div class="nav-left">
+        <a class="brand" href="#/" aria-label="Eventify Home">
+          <img class="brand-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F5bbf49f45bce48719aeac92076406ba2?format=webp&width=800" alt="Eventify logo" />
+          <span class="site-title">Eventify</span>
+        </a>
+        <p class="site-tagline">Your Event Your Control</p>
+      </div>
       <nav class="main-nav" aria-label="Main Navigation">
         <a href="#/" class="nav-link">Home</a>
         <a href="#/about" class="nav-link">About</a>
@@ -20,8 +22,11 @@ export function renderNavbar() {
         <a href="#/contact" class="nav-link">Contact</a>
         <a href="#/blog" class="nav-link">Blog</a>
       </nav>
-      <button class="primary-button nav-cta" id="cta" type="button">Plan My Event</button>
-      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <div class="nav-right">
+        <a href="#/auth" class="nav-link nav-auth">Login / Signup</a>
+        <button class="primary-button nav-cta" id="cta" type="button">Plan My Event</button>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      </div>
     </div>
   `;
 
@@ -40,9 +45,9 @@ export function renderNavbar() {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(stored || (prefersDark ? 'dark' : 'light'));
 
-  const headerInner = nav.querySelector('.site-header__inner');
+  const navRight = nav.querySelector('.nav-right');
   const menuToggleBtn = nav.querySelector('.menu-toggle');
-  if (headerInner && menuToggleBtn) headerInner.insertBefore(themeBtn, menuToggleBtn);
+  if (navRight && menuToggleBtn) navRight.insertBefore(themeBtn, menuToggleBtn);
   themeBtn.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     setTheme(next);
