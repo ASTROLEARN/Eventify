@@ -210,11 +210,10 @@ const startServer = async () => {
     const dbConnected = await testConnection();
     
     if (!dbConnected) {
-      console.error('❌ Database connection failed. Please check your Supabase configuration.');
-      console.log('Make sure you have set the following environment variables:');
+      console.warn('⚠️  Database not connected. API will start in demo mode.');
+      console.log('To enable full functionality, set up your Supabase database:');
       console.log('- SUPABASE_URL');
       console.log('- SUPABASE_ANON_KEY');
-      process.exit(1);
     }
     
     // Start the server
