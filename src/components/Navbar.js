@@ -23,7 +23,7 @@ export function renderNavbar() {
         <a href="#/blog" class="nav-link">Blog</a>
       </nav>
       <div class="nav-right">
-        <a href="#/auth" class="nav-link nav-auth">Login / Signup</a>
+        <a href="#/login" class="nav-link nav-auth">Login / Signup</a>
         <button class="primary-button nav-cta" id="cta" type="button">Plan My Event</button>
         <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       </div>
