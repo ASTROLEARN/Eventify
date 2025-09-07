@@ -1,0 +1,48 @@
+My Eventify application is experiencing Google OAuth errors and needs full-stack improvements. Please implement the following fixes and enhancements:
+
+## Current Problem
+Google OAuth shows: "bdf2t6fc-8498-4557-8174-078be0df8c0c-00-14vdlsz8wtkf5.sisko.replit.dev is not authorized"
+
+## Required Fixes & Improvements
+
+### 1. Authentication Overhaul
+- **Replace custom auth with Supabase native authentication**
+- Implement Supabase Google OAuth instead of custom implementation
+- Use Supabase's user management instead of manual JWT/bcrypt
+- Keep profiles table only for extended user data (not auth)
+- Add email/password auth as fallback option
+
+### 2. Frontend Changes
+- Update React components to use Supabase auth hooks
+- Implement proper auth state management
+- Create protected route components
+- Add loading states for auth processes
+- Improve auth UI/UX with clear error messages
+- Implement proper logout functionality
+
+### 3. Backend Updates
+- Remove custom JWT middleware (use Supabase RLS instead)
+- Update all API endpoints to use Supabase client with RLS
+- Implement proper error handling for auth failures
+- Add CORS configuration for your frontend domain
+- Include rate limiting on authentication endpoints
+
+### 4. Google OAuth Fix
+- Either configure authorized domains in Google Cloud Console
+- OR use Supabase's built-in Google auth that handles dynamic domains
+- Set up proper redirect URLs in both Supabase and Google Console
+
+### 5. Additional Features
+- Email verification for new signups
+- Password reset functionality
+- Proper session management
+- CSRF protection
+- Admin role detection and protection
+
+### 6. Testing & Documentation
+- Provide testing instructions for all auth flows
+- Include examples for both success and error cases
+- Document environment variables needed
+- Add error handling for common OAuth failures
+
+Please provide complete code for both frontend and backend with these improvements, ensuring the application works seamlessly with the existing Supabase database schema that includes profiles, events, vendors, bookings, and RLS policies.
