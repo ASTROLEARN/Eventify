@@ -9,10 +9,13 @@ import { Vendors } from './pages/Vendors.js';
 import { Dashboard } from './pages/Dashboard.js';
 import { Contact } from './pages/Contact.js';
 import { Blog } from './pages/Blog.js';
-import { Auth } from './pages/AuthNew.js'; // Updated to use enhanced Supabase auth
+import { Login } from './pages/Login.js';
+import { Register } from './pages/Register.js';
+import { AuthState } from './utils/authState.js';
 
 const routes = {
   '/': Homepage,
+  '/home': Homepage,
   '/about': About,
   '/services': Services,
   '/how-it-works': HowItWorks,
@@ -20,7 +23,8 @@ const routes = {
   '/dashboard': Dashboard,
   '/contact': Contact,
   '/blog': Blog,
-  '/auth': Auth
+  '/login': Login,
+  '/register': Register
 };
 
 function parseLocation() {

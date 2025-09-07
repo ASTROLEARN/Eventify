@@ -3,30 +3,13 @@
  * This file handles environment variables for both development and production
  */
 
-// Default configuration
-const defaultConfig = {
-  SUPABASE_URL: 'https://placeholder.supabase.co',
-  SUPABASE_ANON_KEY: 'placeholder-anon-key'
+// Environment configuration for Replit
+const envConfig = {
+  SUPABASE_URL: 'https://kduqigxfckhkoesghbct.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkdXFpZ3hmY2toa29lc2doYmN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNDQyMzEsImV4cCI6MjA3MjgyMDIzMX0.98kfcPWk7XDsBlYQTYcag4ZwCNLrLPo2RMBJs9fnSK0'
 };
 
-// Get environment variables
-const getEnvVars = () => {
-  // In development, check for global variables
-  if (typeof window !== 'undefined') {
-    return {
-      SUPABASE_URL: window.SUPABASE_URL || window.ENV?.SUPABASE_URL || defaultConfig.SUPABASE_URL,
-      SUPABASE_ANON_KEY: window.SUPABASE_ANON_KEY || window.ENV?.SUPABASE_ANON_KEY || defaultConfig.SUPABASE_ANON_KEY
-    };
-  }
-  
-  // In Node.js environment
-  return {
-    SUPABASE_URL: process.env.SUPABASE_URL || defaultConfig.SUPABASE_URL,
-    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || defaultConfig.SUPABASE_ANON_KEY
-  };
-};
-
-export const env = getEnvVars();
+export const env = envConfig;
 
 // Validation
 export const validateEnvVars = () => {
