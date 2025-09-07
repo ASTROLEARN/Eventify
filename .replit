@@ -39,7 +39,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd eventify-backend && npm start"
+args = "cd eventify-backend && NODE_ENV=development npm start"
 waitForPort = 3001
 
 [workflows.workflow.metadata]
