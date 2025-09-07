@@ -1,16 +1,34 @@
 /**
- * Environment configuration for Supabase
+ * Environment configuration for Supabase and API
  * This file handles environment variables for both development and production
  */
+
+// Get API base URL for different environments
+const getApiBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    // In production (Vercel), API endpoints are serverless functions
+    if (window.location.hostname.includes('.vercel.app')) {
+      return `https://${window.location.hostname}/api`;
+    }
+    
+    // In Replit, use the current domain but change port to 3001 for backend
+    const currentHost = window.location.hostname;
+    if (currentHost.includes('.replit.dev')) {
+      // Use the Replit domain with port 3001
+      return `https://${currentHost.replace('.replit.dev', '')}-3001.replit.dev`;
+    }
+  }
+  // Fallback for local development
+  return 'http://localhost:3001';
+};
 
 // Environment configuration for multiple platforms
 const envConfig = {
   SUPABASE_URL: window.ENV?.SUPABASE_URL || 
-    process?.env?.SUPABASE_URL || 
-    'https://kduqigxfckhkoesghbct.supabase.co',
+    process?.env?.SUPABASE_URL,
   SUPABASE_ANON_KEY: window.ENV?.SUPABASE_ANON_KEY || 
-    process?.env?.SUPABASE_ANON_KEY || 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkdXFpZ3hmY2toa29lc2doYmN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNDQyMzEsImV4cCI6MjA3MjgyMDIzMX0.98kfcPWk7XDsBlYQTYcag4ZwCNLrLPo2RMBJs9fnSK0'
+    process?.env?.SUPABASE_ANON_KEY,
+  API_BASE_URL: getApiBaseUrl()
 };
 
 export const env = envConfig;

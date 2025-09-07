@@ -3,9 +3,14 @@
  * This file handles environment variables for both development and production
  */
 
-// Get Replit domain for API calls
+// Get API base URL for different environments
 const getApiBaseUrl = () => {
   if (typeof window !== 'undefined') {
+    // In production (Vercel), API endpoints are serverless functions
+    if (window.location.hostname.includes('.vercel.app')) {
+      return `https://${window.location.hostname}/api`;
+    }
+    
     // In Replit, use the current domain but change port to 3001 for backend
     const currentHost = window.location.hostname;
     if (currentHost.includes('.replit.dev')) {
