@@ -9,7 +9,7 @@ export function renderNavbar() {
         <img class="brand-logo" src="https://cdn.builder.io/api/v1/image/assets%2F7860fc63240248d9961d00aee706ff31%2F5bbf49f45bce48719aeac92076406ba2?format=webp&width=800" alt="Eventify logo" />
         <span class="site-title">Eventify</span>
       </a>
-      <p class="site-tagline">Your Smart Event Planner</p>
+      <p class="site-tagline">Your Event Your Control</p>
       <nav class="main-nav" aria-label="Main Navigation">
         <a href="#/" class="nav-link">Home</a>
         <a href="#/about" class="nav-link">About</a>
