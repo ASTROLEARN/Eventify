@@ -1,0 +1,197 @@
+I need you to act as a full-stack developer and create a complete, production-ready backend for my Eventify event management application. Follow these specifications exactly:
+
+## PROJECT OVERVIEW
+Create a Node.js/Express.js backend for Eventify - an event management platform that allows users to create events, manage vendors, handle bookings, and receive contact inquiries.
+
+## TECH STACK REQUIREMENTS
+- Runtime: Node.js with Express.js framework
+- Database: Supabase (PostgreSQL)
+- Authentication: JWT tokens
+- Password hashing: bcryptjs
+- Security: Helmet, CORS, rate limiting
+- Validation: express-validator
+- Environment: dotenv for configuration
+
+## DATABASE SCHEMA (Create these tables in Supabase)
+Create these tables with proper relationships and Row Level Security enabled:
+
+1. users table:
+   - id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+   - name VARCHAR(255) NOT NULL
+   - email VARCHAR(255) UNIQUE NOT NULL
+   - password_hash TEXT NOT NULL
+   - created_at TIMESTAMPTZ DEFAULT NOW()
+
+2. events table:
+   - id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+   - title VARCHAR(255) NOT NULL
+   - description TEXT
+   - event_date TIMESTAMPTZ NOT NULL
+   - location VARCHAR(255) NOT NULL
+   - category VARCHAR(100)
+   - created_by UUID REFERENCES users(id) ON DELETE CASCADE
+   - created_at TIMESTAMPTZ DEFAULT NOW()
+   - updated_at TIMESTAMPTZ DEFAULT NOW()
+
+3. vendors table:
+   - id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+   - name VARCHAR(255) NOT NULL
+   - category VARCHAR(100) NOT NULL
+   - rating NUMERIC(3, 2) DEFAULT 0.00
+   - availability JSONB DEFAULT '[]'
+   - image_url TEXT
+   - description TEXT
+   - created_at TIMESTAMPTZ DEFAULT NOW()
+   - updated_at TIMESTAMPTZ DEFAULT NOW()
+
+4. bookings table:
+   - id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+   - user_id UUID REFERENCES users(id) ON DELETE CASCADE
+   - event_id UUID REFERENCES events(id) ON DELETE CASCADE
+   - vendor_id UUID REFERENCES vendors(id) ON DELETE CASCADE
+   - status VARCHAR(50) DEFAULT 'pending'
+   - created_at TIMESTAMPTZ DEFAULT NOW()
+   - updated_at TIMESTAMPTZ DEFAULT NOW()
+
+5. contact table:
+   - id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+   - name VARCHAR(255) NOT NULL
+   - email VARCHAR(255) NOT NULL
+   - message TEXT NOT NULL
+   - created_at TIMESTAMPTZ DEFAULT NOW()
+
+## FOLDER STRUCTURE
+Create this exact folder structure:
+eventify-backend/
+├── config/
+│   └── database.js
+├── controllers/
+│   ├── authController.js
+│   ├── eventController.js
+│   ├── vendorController.js
+│   ├── bookingController.js
+│   └── contactController.js
+├── middleware/
+│   ├── auth.js
+│   ├── validation.js
+│   └── errorHandler.js
+├── routes/
+│   ├── auth.js
+│   ├── events.js
+│   ├── vendors.js
+│   ├── bookings.js
+│   └── contact.js
+├── utils/
+│   └── responses.js
+├── .env
+├── .env.example
+├── package.json
+└── server.js
+
+## ENVIRONMENT CONFIGURATION
+Create .env and .env.example files with these variables:
+- PORT=3000
+- NODE_ENV=development
+- SUPABASE_URL=your_supabase_project_url_here
+- SUPABASE_ANON_KEY=your_supabase_anon_key_here
+- JWT_SECRET=your_jwt_secret_here
+- JWT_EXPIRES_IN=7d
+- BCRYPT_SALT_ROUNDS=12
+
+## AUTHENTICATION REQUIREMENTS
+- Implement JWT-based authentication
+- Create routes for /api/auth/register and /api/auth/login
+- Hash passwords using bcryptjs with salt rounds from environment variable
+- Protect sensitive routes with authentication middleware
+- Include token expiration handling
+
+## API ENDPOINTS TO IMPLEMENT
+Create these RESTful endpoints with proper validation:
+
+AUTH ENDPOINTS:
+- POST /api/auth/register - User registration
+- POST /api/auth/login - User login
+- GET /api/auth/profile - Get user profile (protected)
+
+EVENT ENDPOINTS:
+- GET /api/events - Get all events (with pagination, filtering)
+- GET /api/events/:id - Get single event
+- POST /api/events - Create event (protected)
+- PUT /api/events/:id - Update event (protected, owner only)
+- DELETE /api/events/:id - Delete event (protected, owner only)
+
+VENDOR ENDPOINTS:
+- GET /api/vendors - Get all vendors
+- GET /api/vendors/:id - Get single vendor
+- POST /api/vendors - Create vendor (protected)
+- PUT /api/vendors/:id - Update vendor (protected)
+- DELETE /api/vendors/:id - Delete vendor (protected)
+
+BOOKING ENDPOINTS:
+- GET /api/bookings - Get user's bookings (protected)
+- GET /api/bookings/:id - Get single booking (protected)
+- POST /api/bookings - Create booking (protected)
+- PUT /api/bookings/:id - Update booking status (protected)
+- DELETE /api/bookings/:id - Cancel booking (protected)
+
+CONTACT ENDPOINTS:
+- POST /api/contact - Submit contact form
+
+HEALTH CHECK:
+- GET /health - API status check
+
+## MIDDLEWARE REQUIREMENTS
+1. Authentication middleware to protect routes
+2. Validation middleware for all inputs using express-validator
+3. Error handling middleware
+4. CORS configuration
+5. Rate limiting (100 requests per 15 minutes per IP)
+6. Security headers with Helmet
+
+## VALIDATION REQUIREMENTS
+Implement comprehensive validation for:
+- Email format validation
+- Password strength validation (min 6 chars)
+- UUID validation for ID parameters
+- Required field validation
+- Data type validation
+- Input sanitization
+
+## ERROR HANDLING
+- Consistent error response format
+- Proper HTTP status codes
+- Descriptive error messages
+- Database error handling
+- JWT error handling
+- Validation error formatting
+
+## RESPONSE FORMATTING
+Use consistent response format:
+- success: boolean
+- message: string
+- data: object (when applicable)
+- pagination: object (for list endpoints)
+
+## SECURITY BEST PRACTICES
+- Hash passwords with bcrypt
+- Use JWT for authentication
+- Implement rate limiting
+- Use security headers with Helmet
+- Validate and sanitize all inputs
+- Use environment variables for secrets
+- Enable CORS with proper configuration
+
+## ADDITIONAL REQUIREMENTS
+- Use async/await syntax
+- Implement proper error handling
+- Include comprehensive code comments
+- Use modern ES6+ JavaScript features
+- Follow RESTful API conventions
+- Implement pagination for list endpoints
+
+## IMPLEMENTATION INSTRUCTIONS
+Generate the complete code for each file in the specified folder structure. Include all necessary require/import statements, function implementations, and export statements.
+
+Start by creating the package.json file with all dependencies, then proceed with the configuration files, middleware, utilities, controllers, routes, and finally the main server file.
+
+Ensure all code is production-ready with proper error handling, validation, and security measures implemented.
