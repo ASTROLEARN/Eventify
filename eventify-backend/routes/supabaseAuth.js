@@ -113,7 +113,7 @@ router.get('/stats', [
  * @access  Public
  */
 router.get('/session', optionalAuthentication, (req, res) => {
-  const { successResponse } = require('../utils/responseHelpers');
+  const { successResponse } = require('../utils/responses');
   
   if (req.user) {
     return successResponse(res, {
@@ -136,7 +136,7 @@ router.get('/session', optionalAuthentication, (req, res) => {
  * @access  Public (but secured with webhook secret)
  */
 router.post('/webhook', async (req, res) => {
-  const { successResponse, errorResponse } = require('../utils/responseHelpers');
+  const { successResponse, errorResponse } = require('../utils/responses');
   
   try {
     // Verify webhook secret

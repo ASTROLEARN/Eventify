@@ -9,7 +9,7 @@ const {
   errorResponse, 
   createdResponse, 
   notFoundResponse 
-} = require('../utils/responseHelpers');
+} = require('../utils/responses');
 const asyncHandler = require('express-async-handler');
 
 /**
