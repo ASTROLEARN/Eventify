@@ -25,7 +25,7 @@ const testimonials = [
 
 export function Homepage() {
   const section = document.createElement('main');
-  section.className = 'content-section';
+  section.className = 'content-section page-enter';
   section.innerHTML = `
     <section class="hero-panel hero-banner">
       <div class="hero-grid">
@@ -94,12 +94,12 @@ export function Homepage() {
     </section>
     <div class="section-divider" aria-hidden="true"></div>
 
-    <section class="category-section">
-      <div class="section-header">
+    <section class="category-section animate-on-scroll">
+      <div class="section-header animate-on-scroll delay-1">
         <h3 class="section-title">Find Perfect Vendors</h3>
         <p class="section-subtitle">Browse our curated network of top-rated event professionals</p>
       </div>
-      <div class="category-grid">
+      <div class="category-grid animate-on-scroll delay-2">
         ${categoryItem('Catering', icons.Catering)}
         ${categoryItem('Decoration', icons.Decoration)}
         ${categoryItem('Photography', icons.Photography)}
@@ -117,8 +117,8 @@ export function Homepage() {
     </section>
     <div class="section-divider" aria-hidden="true"></div>
 
-    <section class="testimonials-section" aria-label="Testimonials">
-      <div class="section-header">
+    <section class="testimonials-section animate-on-scroll" aria-label="Testimonials">
+      <div class="section-header animate-on-scroll delay-1">
         <h3 class="section-title">Success Stories</h3>
         <p class="section-subtitle">See what our customers are saying about their events</p>
       </div>
@@ -138,10 +138,10 @@ export function Homepage() {
     </section>
     <div class="section-divider" aria-hidden="true"></div>
 
-    <section class="cta-section">
+    <section class="cta-section animate-on-scroll">
       <div class="cta-content">
-        <h3 class="cta-title">Ready to Plan Your Next Event?</h3>
-        <p class="cta-description">Join thousands of happy customers who trust Eventify for their special moments</p>
+        <h3 class="cta-title animate-on-scroll delay-1">Ready to Plan Your Next Event?</h3>
+        <p class="cta-description animate-on-scroll delay-2">Join thousands of happy customers who trust Eventify for their special moments</p>
         <div class="cta-actions">
           <button class="primary-button cta-primary" id="get-started">
             Get Started Free
@@ -225,6 +225,100 @@ export function Homepage() {
       autoplay = setInterval(() => { index++; update(); }, 4500);
     });
   }
+
+  // Scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with animate-on-scroll class
+  section.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Enhanced button interactions
+  const buttons = section.querySelectorAll('.primary-button, .secondary-button');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      // Add loading state
+      this.classList.add('btn-loading');
+      
+      // Remove loading state after a short delay (simulating action)
+      setTimeout(() => {
+        this.classList.remove('btn-loading');
+      }, 1500);
+    });
+  });
+
+  // Category button hover effects with audio feedback (if available)
+  const categoryButtons = section.querySelectorAll('.category-button');
+  categoryButtons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+      // Create subtle feedback
+      button.style.transform = 'translateY(-3px) scale(1.03)';
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      button.style.transform = '';
+    });
+    
+    button.addEventListener('click', function() {
+      // Add click feedback
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
+  });
+
+  // Parallax effect for hero section
+  let ticking = false;
+  function updateParallax() {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = section.querySelectorAll('.floating-card');
+    
+    parallaxElements.forEach((element, index) => {
+      const speed = 0.5 + (index * 0.1);
+      const yPos = -(scrolled * speed);
+      element.style.transform = `translateY(${yPos}px)`;
+    });
+    
+    ticking = false;
+  }
+
+  function requestParallaxTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', requestParallaxTick);
+
+  // Add stagger animation to stats
+  const statItems = section.querySelectorAll('.stat-item');
+  statItems.forEach((item, index) => {
+    item.style.animationDelay = `${0.2 + (index * 0.2)}s`;
+    item.classList.add('animate-on-scroll');
+    observer.observe(item);
+  });
+
+  // Add stagger animation to category buttons
+  const categoryItems = section.querySelectorAll('.category-button');
+  categoryItems.forEach((item, index) => {
+    item.style.animationDelay = `${0.1 + (index * 0.1)}s`;
+    item.classList.add('animate-on-scroll');
+    observer.observe(item);
+  });
 
   return section;
 }
