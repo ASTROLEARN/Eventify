@@ -9,7 +9,7 @@ import { Vendors } from './pages/Vendors.js';
 import { Dashboard } from './pages/Dashboard.js';
 import { Contact } from './pages/Contact.js';
 import { Blog } from './pages/Blog.js';
-import { Auth } from './pages/Auth.js';
+import { Auth } from './pages/AuthNew.js'; // Updated to use enhanced Supabase auth
 
 const routes = {
   '/': Homepage,

@@ -8,7 +8,7 @@ const {
   deleteEvent,
   getMyEvents
 } = require('../controllers/eventController');
-const { authenticateToken, optionalAuth } = require('../middleware/auth');
+const { authenticateSupabaseToken, optionalAuthentication } = require('../middleware/supabaseAuth');
 const {
   validateEvent,
   validateUUIDParam,
@@ -32,7 +32,7 @@ router.get('/', [
  * @access  Private
  */
 router.get('/my-events', [
-  authenticateToken,
+  authenticateSupabaseToken,
   validatePagination
 ], getMyEvents);
 
@@ -49,7 +49,7 @@ router.get('/:id', validateUUIDParam('id'), getEventById);
  * @access  Private
  */
 router.post('/', [
-  authenticateToken,
+  authenticateSupabaseToken,
   validateEvent
 ], createEvent);
 
@@ -59,7 +59,7 @@ router.post('/', [
  * @access  Private (owner only)
  */
 router.put('/:id', [
-  authenticateToken,
+  authenticateSupabaseToken,
   validateUUIDParam('id'),
   validateEvent
 ], updateEvent);
@@ -70,7 +70,7 @@ router.put('/:id', [
  * @access  Private (owner only)
  */
 router.delete('/:id', [
-  authenticateToken,
+  authenticateSupabaseToken,
   validateUUIDParam('id')
 ], deleteEvent);
 

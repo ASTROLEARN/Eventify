@@ -11,7 +11,7 @@ const { testConnection } = require('./config/database');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 // Import routes
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/supabaseAuth'); // Updated to use Supabase auth
 const eventRoutes = require('./routes/events');
 const vendorRoutes = require('./routes/vendors');
 const bookingRoutes = require('./routes/bookings');
