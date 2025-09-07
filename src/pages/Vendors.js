@@ -4,8 +4,10 @@ function vendorCard(v) {
       <img src="${v.photo}" alt="${v.name} promo" width="320" height="200" loading="lazy" />
       <div class="vendor-info">
         <h4>${v.name}</h4>
-        <p class="rating">${'★'.repeat(v.rating)}${'☆'.repeat(5 - v.rating)} <span class="muted">(${v.rating}★)</span></p>
-        <button class="primary-button view-profile" data-id="${v.id}" type="button">View Profile</button>
+        <p class="price">Price Range: <span class="price-number">${v.priceRange}</span></p>
+        <p class="reviews">${'★'.repeat(v.rating)}${'☆'.repeat(5 - v.rating)} <span class="muted">(${v.reviews} reviews)</span></p>
+        <div class="card-divider"></div>
+        <button class="check-availability" data-id="${v.id}" type="button">Check Availability</button>
       </div>
     </article>
   `;
