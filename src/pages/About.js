@@ -33,7 +33,7 @@ export function About() {
           <article class="team-card">
             <img src="https://picsum.photos/seed/eventify-${i}/240/240" width="240" height="240" alt="${name} portrait" loading="lazy"/>
             <h4>${name}</h4>
-            <p class="role">${['CEO','CTO','Head of Design','Head of Ops'][i]}</p>
+            <p class="role">${['CEO','CEO','Head of Design','Head of Ops'][i]}</p>
             <p>Passionate about simplifying events through technology and design.</p>
           </article>
         `).join('')}
