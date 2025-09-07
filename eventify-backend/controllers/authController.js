@@ -21,7 +21,12 @@ const register = asyncHandler(async (req, res) => {
     .from('users')
     .select('id')
     .eq('email', email)
-    .single();
+    .maybeSingle();
+
+  if (checkError) {
+    console.error('User check error:', checkError);
+    return errorResponse(res, 'Failed to check user existence', 500);
+  }
 
   if (existingUser) {
     return errorResponse(res, 'User with this email already exists', 409);
@@ -46,6 +51,9 @@ const register = asyncHandler(async (req, res) => {
 
   if (createError) {
     console.error('User creation error:', createError);
+    if (createError.code === '23505') {
+      return errorResponse(res, 'User with this email already exists', 409);
+    }
     return errorResponse(res, 'Failed to create user account', 500);
   }
 
@@ -70,9 +78,14 @@ const login = asyncHandler(async (req, res) => {
     .from('users')
     .select('id, name, email, password_hash, created_at')
     .eq('email', email.toLowerCase())
-    .single();
+    .maybeSingle();
 
-  if (findError || !user) {
+  if (findError) {
+    console.error('User lookup error:', findError);
+    return errorResponse(res, 'Login failed', 500);
+  }
+
+  if (!user) {
     return unauthorizedResponse(res, 'Invalid email or password');
   }
 

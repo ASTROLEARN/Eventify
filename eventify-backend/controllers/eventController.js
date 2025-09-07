@@ -18,57 +18,63 @@ const getAllEvents = asyncHandler(async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   const offset = (page - 1) * limit;
 
-  // Build query with filters
-  let query = supabase
-    .from('events')
-    .select(`
-      id,
-      title,
-      description,
-      event_date,
-      location,
-      category,
-      created_at,
-      updated_at,
-      users:created_by (
+  try {
+    // Build query with filters
+    let query = supabase
+      .from('events')
+      .select(`
         id,
-        name,
-        email
-      )
-    `, { count: 'exact' });
+        title,
+        description,
+        event_date,
+        location,
+        category,
+        created_at,
+        updated_at,
+        created_by,
+        users!created_by (
+          id,
+          name,
+          email
+        )
+      `, { count: 'exact' });
 
-  // Apply filters
-  if (req.query.category) {
-    query = query.ilike('category', `%${req.query.category}%`);
-  }
+    // Apply filters
+    if (req.query.category) {
+      query = query.ilike('category', `%${req.query.category}%`);
+    }
 
-  if (req.query.location) {
-    query = query.ilike('location', `%${req.query.location}%`);
-  }
+    if (req.query.location) {
+      query = query.ilike('location', `%${req.query.location}%`);
+    }
 
-  if (req.query.date_from) {
-    query = query.gte('event_date', req.query.date_from);
-  }
+    if (req.query.date_from) {
+      query = query.gte('event_date', req.query.date_from);
+    }
 
-  if (req.query.date_to) {
-    query = query.lte('event_date', req.query.date_to);
-  }
+    if (req.query.date_to) {
+      query = query.lte('event_date', req.query.date_to);
+    }
 
-  // Apply pagination and ordering
-  query = query
-    .order('event_date', { ascending: true })
-    .range(offset, offset + limit - 1);
+    // Apply pagination and ordering
+    query = query
+      .order('event_date', { ascending: true })
+      .range(offset, offset + limit - 1);
 
-  const { data: events, error, count } = await query;
+    const { data: events, error, count } = await query;
 
-  if (error) {
-    console.error('Error fetching events:', error);
+    if (error) {
+      console.error('Error fetching events:', error);
+      return errorResponse(res, 'Failed to fetch events', 500);
+    }
+
+    const pagination = generatePagination(page, limit, count || 0);
+
+    return successResponse(res, events || [], 'Events retrieved successfully', 200, pagination);
+  } catch (error) {
+    console.error('Unexpected error fetching events:', error);
     return errorResponse(res, 'Failed to fetch events', 500);
   }
-
-  const pagination = generatePagination(page, limit, count);
-
-  return successResponse(res, events, 'Events retrieved successfully', 200, pagination);
 });
 
 /**
@@ -89,16 +95,22 @@ const getEventById = asyncHandler(async (req, res) => {
       category,
       created_at,
       updated_at,
-      users:created_by (
+      created_by,
+      users!created_by (
         id,
         name,
         email
       )
     `)
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
-  if (error || !event) {
+  if (error) {
+    console.error('Error fetching event:', error);
+    return errorResponse(res, 'Failed to fetch event', 500);
+  }
+
+  if (!event) {
     return notFoundResponse(res, 'Event');
   }
 

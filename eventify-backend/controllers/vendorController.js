@@ -17,40 +17,45 @@ const getAllVendors = asyncHandler(async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   const offset = (page - 1) * limit;
 
-  // Build query with filters
-  let query = supabase
-    .from('vendors')
-    .select('*', { count: 'exact' });
+  try {
+    // Build query with filters
+    let query = supabase
+      .from('vendors')
+      .select('*', { count: 'exact' });
 
-  // Apply filters
-  if (req.query.category) {
-    query = query.ilike('category', `%${req.query.category}%`);
-  }
+    // Apply filters
+    if (req.query.category) {
+      query = query.ilike('category', `%${req.query.category}%`);
+    }
 
-  if (req.query.name) {
-    query = query.ilike('name', `%${req.query.name}%`);
-  }
+    if (req.query.name) {
+      query = query.ilike('name', `%${req.query.name}%`);
+    }
 
-  if (req.query.min_rating) {
-    query = query.gte('rating', parseFloat(req.query.min_rating));
-  }
+    if (req.query.min_rating) {
+      query = query.gte('rating', parseFloat(req.query.min_rating));
+    }
 
-  // Apply pagination and ordering
-  query = query
-    .order('rating', { ascending: false })
-    .order('name', { ascending: true })
-    .range(offset, offset + limit - 1);
+    // Apply pagination and ordering
+    query = query
+      .order('rating', { ascending: false })
+      .order('name', { ascending: true })
+      .range(offset, offset + limit - 1);
 
-  const { data: vendors, error, count } = await query;
+    const { data: vendors, error, count } = await query;
 
-  if (error) {
-    console.error('Error fetching vendors:', error);
+    if (error) {
+      console.error('Error fetching vendors:', error);
+      return errorResponse(res, 'Failed to fetch vendors', 500);
+    }
+
+    const pagination = generatePagination(page, limit, count || 0);
+
+    return successResponse(res, vendors || [], 'Vendors retrieved successfully', 200, pagination);
+  } catch (error) {
+    console.error('Unexpected error fetching vendors:', error);
     return errorResponse(res, 'Failed to fetch vendors', 500);
   }
-
-  const pagination = generatePagination(page, limit, count);
-
-  return successResponse(res, vendors, 'Vendors retrieved successfully', 200, pagination);
 });
 
 /**
@@ -64,9 +69,14 @@ const getVendorById = asyncHandler(async (req, res) => {
     .from('vendors')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
-  if (error || !vendor) {
+  if (error) {
+    console.error('Error fetching vendor:', error);
+    return errorResponse(res, 'Failed to fetch vendor', 500);
+  }
+
+  if (!vendor) {
     return notFoundResponse(res, 'Vendor');
   }
 

@@ -24,9 +24,14 @@ const authenticateToken = async (req, res, next) => {
       .from('users')
       .select('id, name, email, created_at')
       .eq('id', decoded.userId)
-      .single();
+      .maybeSingle();
 
-    if (error || !user) {
+    if (error) {
+      console.error('User lookup error in auth middleware:', error);
+      return unauthorizedResponse(res, 'Authentication failed');
+    }
+
+    if (!user) {
       return unauthorizedResponse(res, 'Invalid or expired token');
     }
 
@@ -61,7 +66,7 @@ const optionalAuth = async (req, res, next) => {
         .from('users')
         .select('id, name, email, created_at')
         .eq('id', decoded.userId)
-        .single();
+        .maybeSingle();
 
       if (!error && user) {
         req.user = user;
