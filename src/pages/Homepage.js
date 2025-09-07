@@ -81,7 +81,8 @@ export function Homepage() {
   section.querySelectorAll('.category-button').forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.getAttribute('data-category');
-      navigate(`/vendors?category=${encodeURIComponent(cat)}`);
+      const category = String(cat || '').toLowerCase();
+      navigate(`/vendors?category=${encodeURIComponent(category)}&minRating=4`);
     });
   });
 
