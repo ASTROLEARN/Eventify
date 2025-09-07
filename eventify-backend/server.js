@@ -210,10 +210,12 @@ const startServer = async () => {
     const dbConnected = await testConnection();
     
     if (!dbConnected) {
-      console.warn('⚠️  Database not connected. API will start in demo mode.');
-      console.log('To enable full functionality, set up your Supabase database:');
-      console.log('- SUPABASE_URL');
-      console.log('- SUPABASE_ANON_KEY');
+      console.warn('⚠️  Database not connected. API will start in limited mode.');
+      console.log('To enable full functionality, verify your Supabase setup:');
+      console.log('- SUPABASE_URL: Your Supabase project URL');
+      console.log('- SUPABASE_ANON_KEY: Your Supabase anonymous key');
+      console.log('- Ensure "profiles" table exists in your database');
+      console.log('- Check Row Level Security policies allow proper access');
     }
     
     // Start the server
@@ -231,9 +233,9 @@ const startServer = async () => {
       console.log('  Contact: /api/contact');
       console.log('');
       console.log('🔧 Next Steps:');
-      console.log('1. Set up your Supabase database tables');
-      console.log('2. Configure your environment variables');
-      console.log('3. Test the API endpoints');
+      console.log('1. Verify your database has the "profiles" table');
+      console.log('2. Check that all environment variables are configured');
+      console.log('3. Test API endpoints for proper functionality');
       console.log('');
     });
     
