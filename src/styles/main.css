@@ -104,7 +104,8 @@ body { font-family: var(--font-sans); color: var(--ink); background: var(--bg); 
 .hiw-scenario { background: #FFF7F3; border: 1px solid rgba(253,226,217,0.8); border-radius: var(--radius); box-shadow: var(--soft-shadow); padding: 16px; margin-top: 26px; }
 :root[data-theme="dark"] .hiw-scenario { background: #2a2a2a; border-color: rgba(255,255,255,0.06); }
 .scenario-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-.scenario-title { margin: 0; font-size: 20px; font-weight: 900; position: relative; }
+.scenario-title { margin: 0; font-size: clamp(20px, 2vw, 26px); font-weight: 900; position: relative; font-family: var(--font-script); color: #1a1a1a; }
+:root[data-theme="dark"] .scenario-title { color: #fff; }
 .scenario-title::after { content: ""; position: absolute; left: 0; bottom: -4px; width: 40%; height: 3px; background-image: var(--btn-grad); border-radius: 999px; }
 .budget-badge { background-image: var(--btn-grad); color: #fff; border-radius: 999px; padding: 6px 12px; font-weight: 800; box-shadow: var(--button-shadow); }
 .scenario-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
