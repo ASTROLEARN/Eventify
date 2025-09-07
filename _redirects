@@ -1,0 +1,5 @@
+# Redirects for Single Page Application
+/*    /index.html   200
+
+# API routes to backend
+/api/*  https://your-backend-url.vercel.app/api/:splat  200
