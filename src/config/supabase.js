@@ -3,12 +3,18 @@
  */
 import { createClient } from '@supabase/supabase-js';
 
-// Check if we're in a browser environment
-const isBrowser = typeof window !== 'undefined';
+import { env, validateEnvVars, initializeEnv } from './env.js';
 
-// Get environment variables or use placeholders
-const supabaseUrl = isBrowser ? window.SUPABASE_URL : process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey = isBrowser ? window.SUPABASE_ANON_KEY : process.env.SUPABASE_ANON_KEY || 'placeholder-key';
+// Initialize environment variables
+initializeEnv();
+
+// Validate configuration
+if (!validateEnvVars()) {
+  console.error('Supabase configuration is incomplete. Please check your environment variables.');
+}
+
+const supabaseUrl = env.SUPABASE_URL;
+const supabaseAnonKey = env.SUPABASE_ANON_KEY;
 
 // Create Supabase client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {

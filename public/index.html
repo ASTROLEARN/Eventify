@@ -9,9 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/src/styles/main.css" />
+    <link rel="stylesheet" href="/auth-styles.css" />
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      // Set up environment variables for Supabase
+      window.ENV = {
+        SUPABASE_URL: window.location.hostname.includes('replit') 
+          ? 'YOUR_SUPABASE_URL_HERE' 
+          : 'YOUR_SUPABASE_URL_HERE',
+        SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY_HERE'
+      };
+      
+      // Make them available globally for backward compatibility
+      window.SUPABASE_URL = window.ENV.SUPABASE_URL;
+      window.SUPABASE_ANON_KEY = window.ENV.SUPABASE_ANON_KEY;
+    </script>
     <script type="module" src="/src/App.js"></script>
   </body>
 </html>
