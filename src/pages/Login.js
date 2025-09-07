@@ -241,15 +241,19 @@ export function Login() {
 
     .input-icon-modern {
       position: absolute;
-      left: 16px;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
       color: #6b7280;
       z-index: 2;
       pointer-events: none;
+      width: 20px;
+      height: 20px;
     }
 
     .input-field-modern {
       width: 100%;
-      padding: 16px 16px 16px 48px;
+      padding: 16px 50px 16px 50px;
       border: 2px solid #e5e7eb;
       border-radius: 12px;
       font-size: 16px;
@@ -271,17 +275,21 @@ export function Login() {
 
     .password-toggle-modern {
       position: absolute;
-      right: 16px;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
       background: none;
       border: none;
       color: #6b7280;
       cursor: pointer;
-      padding: 4px;
+      padding: 6px;
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s ease;
+      width: 32px;
+      height: 32px;
     }
 
     .password-toggle-modern:hover {
@@ -549,7 +557,19 @@ export function Login() {
 
       .input-field-modern {
         font-size: 16px;
-        padding: 14px 14px 14px 44px;
+        padding: 14px 48px 14px 48px;
+      }
+
+      .input-icon-modern {
+        left: 12px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .password-toggle-modern {
+        right: 12px;
+        width: 28px;
+        height: 28px;
       }
 
       .btn-primary-modern,
